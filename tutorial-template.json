@@ -1,0 +1,45 @@
+{
+  "id": "branch-short-name",
+  "title": "Tutorial Title",
+  "category": "foundations | computational | ai | building-performance | fabrication | site-data | representation",
+  "software": [
+    "Software A",
+    "Software B"
+  ],
+  "level": "beginner | intermediate | advanced",
+  "format": "video series | text + files | video + shop demo | reading + seminar recording",
+  "duration": "90 min",
+  "summary": "One or two sentences describing what students will be able to do after completing this tutorial.",
+  "steps": [
+    {
+      "title": "Step title",
+      "type": "video",
+      "url": "https://link-to-video"
+    },
+    {
+      "title": "Step title",
+      "type": "text",
+      "url": "https://link-to-page-or-pdf"
+    }
+  ],
+  "resources": [
+    {
+      "label": "Template file, dataset, or booking link",
+      "url": "https://..."
+    }
+  ],
+  "contributor": {
+    "name": "Your Name",
+    "role": "Faculty, Architecture"
+  },
+  "prerequisites": [
+    "id-of-tutorial-students-should-finish-first"
+  ],
+  "status": "draft",
+  "verifiedBy": "",
+  "updated": "2026-08",
+  "tags": [
+    "topic keyword A",
+    "topic keyword B"
+  ]
+}

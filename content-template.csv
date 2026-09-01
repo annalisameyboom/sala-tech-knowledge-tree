@@ -1,0 +1,4 @@
+id,title,category,level,software,format,duration,summary,steps,resources,prerequisites,contributor_name,contributor_role,status,verified_by,updated,tags,chapter,order
+gh-data-trees,Grasshopper II: Data Trees + Attractors,computational,intermediate,Grasshopper,video series,2 hr,"Data tree logic, grafting and flattening with intent, and attractor fields, structured so others can read your definitions.","video | Data trees demystified | https://youtu.be/example1
+video | Attractor and field logic | https://youtu.be/example2
+text | Definition hygiene guide | https://drive.example/doc",Example definitions (.gh) | https://drive.example/files,example-entry,J. Alvarez,"Faculty, Architecture",draft,,2026-08,"parametric design, data structure",4,2

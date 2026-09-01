@@ -1,0 +1,659 @@
+{
+  "site": {
+    "name": "SALA Tech Knowledge Tree",
+    "subtitle": "The tech knowledge tree for architecture and landscape architecture",
+    "school": "UBC SALA",
+    "validationNote": "All verified material has been reviewed by the SALA faculty tutorial team."
+  },
+  "categories": [
+    {
+      "id": "foundations",
+      "name": "Foundations",
+      "color": "#4A6B55",
+      "blurb": "Core design software every student needs early: Adobe suite and Rhino."
+    },
+    {
+      "id": "computational",
+      "name": "Computational",
+      "color": "#5E7F98",
+      "blurb": "Grasshopper, scripting, and parametric thinking."
+    },
+    {
+      "id": "ai",
+      "name": "AI Methods",
+      "color": "#7A5C8E",
+      "blurb": "Generative tools, LLM workflows, and critical AI literacy for designers."
+    },
+    {
+      "id": "building-performance",
+      "name": "Building Performance",
+      "color": "#2F7E82",
+      "blurb": "Energy, daylight, comfort, and environmental simulation."
+    },
+    {
+      "id": "fabrication",
+      "name": "Fabrication",
+      "color": "#B0562F",
+      "blurb": "Laser, CNC, and robotic fabrication in the shop."
+    },
+    {
+      "id": "site-data",
+      "name": "Site + Data",
+      "color": "#9C7A2E",
+      "blurb": "GIS, capture, point clouds, and environmental data for site work."
+    },
+    {
+      "id": "representation",
+      "name": "Representation",
+      "color": "#6B6B72",
+      "blurb": "Drawing standards, rendering, and visual communication."
+    }
+  ],
+  "levels": [
+    "beginner",
+    "intermediate",
+    "advanced"
+  ],
+  "statuses": {
+    "verified": "Reviewed and approved by the faculty tutorial team",
+    "in_review": "Submitted and awaiting faculty review",
+    "draft": "In preparation by the contributor"
+  },
+  "tutorials": [
+    {
+      "id": "gh-hello-grasshopper",
+      "title": "Hello, Grasshopper",
+      "category": "computational",
+      "software": [
+        "Rhino",
+        "Grasshopper"
+      ],
+      "level": "beginner",
+      "format": "video + files",
+      "duration": "4 hr",
+      "summary": "First contact with Grasshopper: the canvas, components and wires, sliders, baking, and file sync between .gh and .3dm. Three follow-along practice videos build your first parametric forms.",
+      "steps": [
+        {
+          "type": "video",
+          "title": "Getting started with Grasshopper",
+          "url": "https://www.youtube.com/watch?v=0HoOkWAA0l8"
+        },
+        {
+          "type": "text",
+          "title": "Explore the basic components (internalized .gh file)",
+          "url": "https://genenv.github.io/des212-2026/pages/tutorial-1-1.html"
+        },
+        {
+          "type": "video",
+          "title": "Practice 1: first parametric model",
+          "url": "https://www.youtube.com/watch?v=GEVUv-G8ESA"
+        },
+        {
+          "type": "video",
+          "title": "Practice 2",
+          "url": "https://www.youtube.com/watch?v=LvlUjEsT-h0"
+        },
+        {
+          "type": "video",
+          "title": "Practice 3",
+          "url": "https://www.youtube.com/watch?v=SNZH_bDYiNw"
+        }
+      ],
+      "resources": [
+        {
+          "label": "GH Components Basics.gh",
+          "url": "https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%201/GH%20Components%20Basics.gh"
+        },
+        {
+          "label": "Course page: Tutorial 1.1",
+          "url": "https://genenv.github.io/des212-2026/pages/tutorial-1-1.html"
+        },
+        {
+          "label": "Grasshopper complete component documentation",
+          "url": "https://grasshopperdocs.com/completeIndex.html"
+        }
+      ],
+      "contributor": {
+        "name": "Xun Liu",
+        "role": "Faculty, Architecture (DES 212 instructor)"
+      },
+      "prerequisites": [],
+      "status": "in_review",
+      "verifiedBy": "",
+      "updated": "2026-04",
+      "tags": [
+        "parametric design",
+        "visual programming"
+      ]
+    },
+    {
+      "id": "gh-attractors",
+      "title": "Grasshopper Attractors + Data Structure",
+      "category": "computational",
+      "software": [
+        "Rhino",
+        "Grasshopper"
+      ],
+      "level": "intermediate",
+      "format": "video + files",
+      "duration": "self-paced",
+      "summary": "Control geometry with attractor logic, from 3D Voronoi to the Keio University grid paving, keep scripts legible with groups and annotation, and meet the concept behind 90% of Grasshopper errors: data trees.",
+      "steps": [
+        {
+          "type": "video",
+          "title": "Stochastic systems and 3D Voronoi",
+          "url": "https://www.youtube.com/watch?v=Nc1eSjw2elg"
+        },
+        {
+          "type": "video",
+          "title": "Grid attractors: Keio University paving",
+          "url": "https://www.youtube.com/watch?v=8O6ZdzTGVZw"
+        },
+        {
+          "type": "video",
+          "title": "Organizing the Grasshopper workspace",
+          "url": "https://www.youtube.com/watch?v=dAHP0M2GgCs"
+        },
+        {
+          "type": "video",
+          "title": "Data structure fundamentals (5-video series)",
+          "url": "https://www.youtube.com/playlist?list=PL5TCFBlAxkAgTdBm-P-7DJu8MkG_B0gUa"
+        }
+      ],
+      "resources": [
+        {
+          "label": "Course page: Tutorial 1.2",
+          "url": "https://genenv.github.io/des212-2026/pages/tutorial-1-2.html"
+        },
+        {
+          "label": "Data trees deep dive (BIM Corner)",
+          "url": "https://bimcorner.com/a-beginners-guide-to-data-trees-in-grasshopper/"
+        },
+        {
+          "label": "Official Grasshopper data structure guide",
+          "url": "https://developer.rhino3d.com/guides/grasshopper/gh-algorithms-and-data-structures/data-structures/"
+        }
+      ],
+      "contributor": {
+        "name": "Xun Liu",
+        "role": "Faculty, Architecture (DES 212 instructor)"
+      },
+      "prerequisites": [
+        "gh-hello-grasshopper"
+      ],
+      "status": "in_review",
+      "verifiedBy": "",
+      "updated": "2026-04",
+      "tags": [
+        "parametric design",
+        "data structure"
+      ]
+    },
+    {
+      "id": "gh-vectors-planes",
+      "title": "Vectors, Planes + Transformations",
+      "category": "computational",
+      "software": [
+        "Rhino",
+        "Grasshopper",
+        "Bifocals"
+      ],
+      "level": "intermediate",
+      "format": "text + files",
+      "duration": "self-paced",
+      "summary": "The two secret ingredients of parametric design that Rhino modeling never shows you: vectors and planes, plus the transformation logic built on them. Worked .gh files provided for every part.",
+      "steps": [
+        {
+          "type": "text",
+          "title": "Install the Bifocals plugin",
+          "url": "https://genenv.github.io/des212-2026/pages/grasshopper-plugin-installation.html"
+        },
+        {
+          "type": "text",
+          "title": "Vectors in Grasshopper",
+          "url": "https://genenv.github.io/des212-2026/pages/vectors-in-grasshopper.html"
+        },
+        {
+          "type": "text",
+          "title": "Planes in Grasshopper",
+          "url": "https://genenv.github.io/des212-2026/pages/planes-in-grasshopper.html"
+        },
+        {
+          "type": "text",
+          "title": "Transformations in Grasshopper",
+          "url": "https://genenv.github.io/des212-2026/pages/transformations-in-grasshopper.html"
+        }
+      ],
+      "resources": [
+        {
+          "label": "Vectors and Planes.3dm",
+          "url": "https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%201/Vectors%20and%20Planes.3dm"
+        },
+        {
+          "label": "Vectors and Planes.gh",
+          "url": "https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%201/Vectors%20and%20Planes-1.gh"
+        },
+        {
+          "label": "Transformation-Morph.3dm",
+          "url": "https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%201/Transformation-Morph.3dm"
+        },
+        {
+          "label": "Transformation-Morph.gh",
+          "url": "https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%201/Transformation-Morph.gh"
+        },
+        {
+          "label": "Course page: Tutorial 1.3",
+          "url": "https://genenv.github.io/des212-2026/pages/tutorial-1-3.html"
+        }
+      ],
+      "contributor": {
+        "name": "Xun Liu",
+        "role": "Faculty, Architecture (DES 212 instructor)"
+      },
+      "prerequisites": [
+        "gh-attractors"
+      ],
+      "status": "in_review",
+      "verifiedBy": "",
+      "updated": "2026-04",
+      "tags": [
+        "geometry",
+        "transformation"
+      ]
+    },
+    {
+      "id": "ai-visualization",
+      "title": "AI for Visualization",
+      "category": "ai",
+      "software": [
+        "Gemini",
+        "ComfyUI"
+      ],
+      "level": "beginner",
+      "format": "web tutorial",
+      "duration": "self-paced",
+      "summary": "Communicate with AI and guide it controllably: text-to-image generation with worked example prompts, image-to-mesh generation, and an optional look at node-based ComfyUI pipelines.",
+      "steps": [
+        {
+          "type": "text",
+          "title": "Text-to-image generation with visual examples",
+          "url": "https://ubcdesignmedia.notion.site/"
+        },
+        {
+          "type": "text",
+          "title": "Image-to-mesh generation",
+          "url": "https://ubcdesignmedia.notion.site/Img2Mesh-Generation-2ffd18514cb28084acc4e5967199be2c"
+        },
+        {
+          "type": "video",
+          "title": "Optional: ComfyUI node-based workflows",
+          "url": "https://www.youtube.com/watch?v=hKGcsoeBRQw"
+        }
+      ],
+      "resources": [
+        {
+          "label": "Course page: Tutorial 2.1",
+          "url": "https://genenv.github.io/des212-2026/pages/tutorial-2-1.html"
+        },
+        {
+          "label": "Image upscaling tools reference",
+          "url": "https://ubcdesignmedia.notion.site/Image-Upscaling-2ffd18514cb280a48329e3fd2c5d824e"
+        }
+      ],
+      "contributor": {
+        "name": "Xun Liu",
+        "role": "Faculty, Architecture (DES 212 instructor)"
+      },
+      "prerequisites": [],
+      "status": "in_review",
+      "verifiedBy": "",
+      "updated": "2026-04",
+      "tags": [
+        "generative AI",
+        "visualization"
+      ]
+    },
+    {
+      "id": "fab-3d-print",
+      "title": "3D Print: From Any Geometry to STL",
+      "category": "fabrication",
+      "software": [
+        "Rhino 8"
+      ],
+      "level": "beginner",
+      "format": "video + exercises",
+      "duration": "self-paced",
+      "summary": "Why 3D printers only read meshes, and how Rhino 8's ShrinkWrap turns any geometry (NURBS, SubD, point clouds, broken scans) into a watertight printable mesh in one step. Three McNeel exercises to practice.",
+      "steps": [
+        {
+          "type": "text",
+          "title": "3D printing primer and Rhino geometry types",
+          "url": "https://genenv.github.io/des212-2026/pages/tutorial-2-2.html"
+        },
+        {
+          "type": "video",
+          "title": "ShrinkWrap overview 1",
+          "url": "https://www.youtube.com/watch?v=jXjbEYTO9z0"
+        },
+        {
+          "type": "video",
+          "title": "ShrinkWrap overview 2",
+          "url": "https://www.youtube.com/watch?v=4sC131_cO6U"
+        },
+        {
+          "type": "text",
+          "title": "McNeel ShrinkWrap exercises: jewelry, point cloud, scan repair",
+          "url": "https://www.rhino3d.com/docs/guides/modeling/shrinkwrap/"
+        },
+        {
+          "type": "video",
+          "title": "Fixing holes with 3DFace",
+          "url": "https://www.youtube.com/watch?v=krk5WyZWvh4"
+        }
+      ],
+      "resources": [
+        {
+          "label": "Course page: Tutorial 2.2",
+          "url": "https://genenv.github.io/des212-2026/pages/tutorial-2-2.html"
+        }
+      ],
+      "contributor": {
+        "name": "Xun Liu",
+        "role": "Faculty, Architecture (DES 212 instructor)"
+      },
+      "prerequisites": [],
+      "status": "in_review",
+      "verifiedBy": "",
+      "updated": "2026-04",
+      "tags": [
+        "3D printing",
+        "mesh modeling"
+      ]
+    },
+    {
+      "id": "fab-robotic-ur30",
+      "title": "Robotic Fabrication with the UR30",
+      "category": "fabrication",
+      "software": [
+        "Grasshopper",
+        "Robots plugin"
+      ],
+      "level": "advanced",
+      "format": "video + supervised lab",
+      "duration": "self-paced",
+      "summary": "Program a UR30 robot arm digitally with the Robots plugin: the four-component pipeline (load robot, create targets, create program, simulate), tool setup with TCP, curve-based toolpaths, and a robotic milling simulation exercise.",
+      "steps": [
+        {
+          "type": "video",
+          "title": "Programming the UR30: full toolpath workflow",
+          "url": "https://www.youtube.com/watch?v=tKVSZeKMYa8"
+        },
+        {
+          "type": "text",
+          "title": "Pick-and-place script framework (reference)",
+          "url": "https://genenv.github.io/des212-2026/pages/tutorial-2-3.html"
+        },
+        {
+          "type": "text",
+          "title": "Exercise: robotic milling simulation (Digital Stone)",
+          "url": "https://genenv.github.io/des212-2026/pages/tutorial-2-3.html"
+        }
+      ],
+      "resources": [
+        {
+          "label": "UR30 Workspace.3dm",
+          "url": "https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%202/UR30%20Workspace.3dm"
+        },
+        {
+          "label": "UR30 Simple Toolpath.gh",
+          "url": "https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%202/UR30%20Simple%20Toolpath.gh"
+        },
+        {
+          "label": "UR30 Pick and Place.gh",
+          "url": "https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%202/UR30%20Pick%20and%20Place.gh"
+        },
+        {
+          "label": "DDS fabrication submission handout (PDF)",
+          "url": "https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%202/CNC%20Handout.pdf"
+        },
+        {
+          "label": "Robots plugin documentation",
+          "url": "https://github.com/visose/Robots/wiki"
+        }
+      ],
+      "contributor": {
+        "name": "Xun Liu",
+        "role": "Faculty, Architecture (DES 212 instructor)"
+      },
+      "prerequisites": [
+        "gh-vectors-planes"
+      ],
+      "status": "in_review",
+      "verifiedBy": "",
+      "updated": "2026-04",
+      "tags": [
+        "robotics",
+        "toolpath"
+      ]
+    },
+    {
+      "id": "site-osm-caribou",
+      "title": "Spatial Data: OSM to 3D Site Model",
+      "category": "site-data",
+      "software": [
+        "Grasshopper",
+        "Caribou",
+        "QGIS"
+      ],
+      "level": "intermediate",
+      "format": "video + files",
+      "duration": "self-paced",
+      "summary": "Bring real-world geographic data into Grasshopper: GIS concepts, data sources for Vancouver and UBC, file types and attributes, then a full OpenStreetMap-to-3D-model workflow with the Caribou plugin.",
+      "steps": [
+        {
+          "type": "text",
+          "title": "GIS concepts: data sources, file types, attributes",
+          "url": "https://genenv.github.io/des212-2026/pages/tutorial-3-1.html"
+        },
+        {
+          "type": "video",
+          "title": "OSM to 3D model with Caribou",
+          "url": "https://www.youtube.com/watch?v=6R2cKahYGGg"
+        },
+        {
+          "type": "text",
+          "title": "Optional: shapefiles and spreadsheets in Grasshopper",
+          "url": "https://genenv.github.io/des212-2026/pages/tutorial-3-1.html"
+        }
+      ],
+      "resources": [
+        {
+          "label": "Caribou Basics.gh",
+          "url": "https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%202/Caribou%20Basics.gh"
+        },
+        {
+          "label": "GH Data Import.zip (shapefile + spreadsheet workflows)",
+          "url": "https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%203/GH%20Data%20Import.zip"
+        },
+        {
+          "label": "Vancouver Open Data Portal",
+          "url": "https://opendata.vancouver.ca"
+        },
+        {
+          "label": "UBC campus dataset (UBC Library)",
+          "url": "https://guides.library.ubc.ca/ubc_campus"
+        },
+        {
+          "label": "Course page: Tutorial 3.1",
+          "url": "https://genenv.github.io/des212-2026/pages/tutorial-3-1.html"
+        }
+      ],
+      "contributor": {
+        "name": "Xun Liu",
+        "role": "Faculty, Architecture (DES 212 instructor)"
+      },
+      "prerequisites": [
+        "gh-hello-grasshopper"
+      ],
+      "status": "in_review",
+      "verifiedBy": "",
+      "updated": "2026-04",
+      "tags": [
+        "GIS",
+        "site modeling"
+      ]
+    },
+    {
+      "id": "bp-ladybug-basics",
+      "title": "Environmental Simulation with Ladybug",
+      "category": "building-performance",
+      "software": [
+        "Grasshopper",
+        "Ladybug"
+      ],
+      "level": "intermediate",
+      "format": "video + files",
+      "duration": "self-paced",
+      "summary": "The Ladybug Tools ecosystem and EPW weather files, then a full demo pipeline for Vancouver: hourly plots, wind roses, sun paths, direct sun hours, and incident radiation analysis on building surfaces.",
+      "steps": [
+        {
+          "type": "text",
+          "title": "Ladybug Tools ecosystem and EPW weather data",
+          "url": "https://genenv.github.io/des212-2026/pages/tutorial-3-2.html"
+        },
+        {
+          "type": "text",
+          "title": "Installing Ladybug",
+          "url": "https://www.food4rhino.com/en/app/ladybug-tools"
+        },
+        {
+          "type": "video",
+          "title": "Weather visualization + radiation analysis demo",
+          "url": "https://www.youtube.com/watch?v=-ZvGvFUoKmg"
+        }
+      ],
+      "resources": [
+        {
+          "label": "Getting Started with Ladybug.gh",
+          "url": "https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%203/Getting%20Started%20with%20Ladybug.gh"
+        },
+        {
+          "label": "EPW Map (weather station finder)",
+          "url": "https://www.ladybug.tools/epwmap/"
+        },
+        {
+          "label": "Ladybug Tools forum",
+          "url": "https://discourse.ladybug.tools/"
+        },
+        {
+          "label": "Course page: Tutorial 3.2",
+          "url": "https://genenv.github.io/des212-2026/pages/tutorial-3-2.html"
+        }
+      ],
+      "contributor": {
+        "name": "Xun Liu",
+        "role": "Faculty, Architecture (DES 212 instructor)"
+      },
+      "prerequisites": [
+        "gh-hello-grasshopper"
+      ],
+      "status": "in_review",
+      "verifiedBy": "",
+      "updated": "2026-04",
+      "tags": [
+        "environmental simulation",
+        "climate data"
+      ]
+    },
+    {
+      "id": "gh-galapagos",
+      "title": "Evolutionary Solvers: Galapagos",
+      "category": "computational",
+      "software": [
+        "Grasshopper",
+        "Galapagos",
+        "Ladybug"
+      ],
+      "level": "advanced",
+      "format": "video + files",
+      "duration": "self-paced",
+      "summary": "Evolutionary optimization in Grasshopper: genome, fitness, and penalty logic with Galapagos, a demo optimizing tree placement for summer shade using Ladybug sun-hour analysis, and a look beyond at multi-objective solvers.",
+      "steps": [
+        {
+          "type": "text",
+          "title": "Galapagos fundamentals (step-by-step guide)",
+          "url": "https://hopific.com/galapagos-grasshopper-tutorial/"
+        },
+        {
+          "type": "video",
+          "title": "Demo: optimizing tree placement for summer shade",
+          "url": "https://www.youtube.com/watch?v=IL88wthWRdY"
+        },
+        {
+          "type": "text",
+          "title": "Beyond Galapagos: multi-objective optimization",
+          "url": "https://genenv.github.io/des212-2026/pages/tutorial-3-3.html"
+        }
+      ],
+      "resources": [
+        {
+          "label": "Galapagos Basics Example.gh",
+          "url": "https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%203/Galapagos%20Basics%20Example.gh"
+        },
+        {
+          "label": "Galapagos Basics Example.3dm",
+          "url": "https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%203/Galapagos%20Basics%20Example.3dm"
+        },
+        {
+          "label": "Alumni Center.3dm (demo site)",
+          "url": "https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%203/Alumni%20Center.3dm"
+        },
+        {
+          "label": "Galapagos Solar Optimization starter.gh",
+          "url": "https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%203/Galapagos%20Solar%20Optimization_To%20Start.gh"
+        },
+        {
+          "label": "Course page: Tutorial 3.3",
+          "url": "https://genenv.github.io/des212-2026/pages/tutorial-3-3.html"
+        }
+      ],
+      "contributor": {
+        "name": "Xun Liu",
+        "role": "Faculty, Architecture (DES 212 instructor)"
+      },
+      "prerequisites": [
+        "gh-attractors",
+        "bp-ladybug-basics"
+      ],
+      "status": "in_review",
+      "verifiedBy": "",
+      "updated": "2026-04",
+      "tags": [
+        "optimization",
+        "environmental simulation"
+      ]
+    }
+  ],
+  "courses": [
+    {
+      "id": "des212",
+      "code": "DES 212",
+      "name": "Design Media II",
+      "instructor": "Xun Liu",
+      "term": "2025W2",
+      "url": "https://genenv.github.io/des212-2026/",
+      "description": "Parametric design with Rhino and Grasshopper. Three modules move from the logic of form, to the intelligence of matter and fabrication, to advanced form-finding.",
+      "tutorialIds": [
+        "gh-hello-grasshopper",
+        "gh-attractors",
+        "gh-vectors-planes",
+        "ai-visualization",
+        "fab-3d-print",
+        "fab-robotic-ur30",
+        "site-osm-caribou",
+        "bp-ladybug-basics",
+        "gh-galapagos"
+      ]
+    }
+  ]
+}

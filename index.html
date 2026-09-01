@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SALA Tech Knowledge Tree</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F1F3EE;
+  --paper-2:#E7EBE3;
+  --ink:#16281F;
+  --ink-soft:#41544A;
+  --line:#D8DED3;
+  --flag:#E8551C;         /* accent: interactive states */
+  --verified:#2E6B45;
+  --review:#9C7A2E;
+  --draft:#8A8F88;
+  --card:#FAFBF8;
+  --radius:3px;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --sans:'Archivo',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--paper);
+  color:var(--ink);
+  font-size:15px;
+  line-height:1.55;
+}
+button{font-family:inherit;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--flag);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- header ---------- */
+header{
+  position:sticky;top:0;z-index:40;
+  background:var(--paper);
+  border-bottom:1.5px solid var(--ink);
+  display:flex;align-items:stretch;gap:0;
+}
+.brand{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:12px 20px;border-right:1.5px solid var(--ink);min-width:240px;
+}
+.brand h1{
+  font-weight:850;font-stretch:118%;letter-spacing:.09em;
+  font-size:15px;line-height:1;white-space:nowrap;
+}
+.brand h1 .tick{color:var(--flag)}
+.brand .sub{font-family:var(--mono);font-size:10px;color:var(--ink-soft);letter-spacing:.08em;margin-top:4px;text-transform:uppercase}
+nav{display:flex;align-items:stretch}
+nav button{
+  background:none;border:none;border-right:1px solid var(--line);
+  padding:0 22px;font-size:13px;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-soft);position:relative;
+}
+nav button:hover{color:var(--ink);background:var(--paper-2)}
+nav button.active{color:var(--ink)}
+nav button.active::after{
+  content:"";position:absolute;left:14px;right:14px;bottom:-1.5px;height:3px;background:var(--flag);
+}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:12px;padding:0 18px}
+.search{
+  display:flex;align-items:center;gap:8px;background:var(--card);
+  border:1px solid var(--ink);border-radius:var(--radius);padding:6px 10px;
+}
+.search input{
+  border:none;background:none;outline:none;font-family:var(--mono);
+  font-size:12.5px;width:190px;color:var(--ink);
+}
+.search .glyph{font-family:var(--mono);font-size:12px;color:var(--ink-soft)}
+
+/* ---------- shared ---------- */
+main{max-width:1280px;margin:0 auto;padding:0 24px 80px}
+.view{display:none}
+.view.active{display:block}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft);display:flex;align-items:center;gap:10px;
+}
+.eyebrow::before{content:"";width:26px;height:1.5px;background:var(--flag);display:inline-block}
+.view-head{padding:34px 0 18px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.view-head h2{font-size:34px;font-weight:800;font-stretch:112%;line-height:1.05;margin-top:8px}
+.view-head p{max-width:560px;color:var(--ink-soft);margin-top:8px;font-size:14.5px}
+
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;
+  padding:2px 8px;border-radius:2px;border:1px solid currentColor;white-space:nowrap;
+}
+.badge::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.badge.verified{color:var(--verified);background:#2e6b4512}
+.badge.in_review{color:var(--review);background:#9c7a2e12}
+.badge.draft{color:var(--draft);background:#8a8f8812}
+
+.chip{
+  font-family:var(--mono);font-size:11.5px;padding:5px 11px;border-radius:20px;
+  border:1px solid var(--ink);background:var(--card);color:var(--ink);
+}
+.chip:hover{background:var(--paper-2)}
+.chip.active{background:var(--ink);color:var(--paper)}
+.chip .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:0}
+
+/* ---------- tree view ---------- */
+.tree-intro{
+  display:grid;grid-template-columns:minmax(280px,460px) 1fr;gap:32px;
+  padding:40px 0 8px;align-items:end;
+}
+.tree-intro h2{font-size:clamp(34px,4.5vw,50px);font-weight:850;font-stretch:115%;line-height:1.02;margin-top:10px}
+.tree-intro .lede{color:var(--ink-soft);margin-top:14px;font-size:15px;max-width:440px}
+.tree-legend{
+  justify-self:end;display:grid;grid-template-columns:repeat(2,auto);gap:6px 22px;
+  font-family:var(--mono);font-size:11px;color:var(--ink-soft);
+  border:1px solid var(--line);background:var(--card);padding:14px 16px;border-radius:var(--radius);
+}
+.tree-legend b{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:7px}
+.tree-wrap{
+  margin-top:18px;border:1.5px solid var(--ink);border-radius:var(--radius);
+  background:var(--card);overflow:auto;position:relative;
+}
+.tree-wrap svg{display:block;min-width:1080px}
+.colhead{font-family:var(--mono);font-size:10px;letter-spacing:.16em;fill:var(--ink-soft)}
+.emptynote{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;fill:var(--ink-soft);opacity:.75}
+.colrule{stroke:var(--line);stroke-width:1;stroke-dasharray:2 4}
+.band{opacity:.5}
+.branch{fill:none;stroke-width:1.8;opacity:.85}
+.xlink{fill:none;stroke:var(--ink-soft);stroke-width:1.2;stroke-dasharray:5 4;opacity:.5}
+.tnode{cursor:pointer}
+.tnode rect.box{fill:var(--card);stroke:var(--line);stroke-width:1;rx:2}
+.tnode.unverified rect.box{stroke-dasharray:4 3;fill:var(--paper)}
+.tnode:hover rect.box,.tnode:focus rect.box{stroke:var(--flag);stroke-width:1.6}
+.tnode text{font-family:var(--sans);font-size:12px;font-weight:600;fill:var(--ink)}
+.tnode text.sub{font-family:var(--mono);font-size:9px;font-weight:400;fill:var(--ink-soft);letter-spacing:.06em}
+.catnode{cursor:default}
+.catnode rect{rx:2}
+.catnode text{font-family:var(--sans);font-size:12.5px;font-weight:800;fill:#fff;letter-spacing:.04em}
+.catnode text.csub{font-family:var(--mono);font-size:9px;font-weight:400;fill:#ffffffcc;letter-spacing:.08em}
+.rootnode rect{fill:var(--ink);rx:2}
+.rootnode text{font-family:var(--sans);font-weight:850;fill:var(--paper);font-size:13px;letter-spacing:.08em}
+.rootnode text.rsub{font-family:var(--mono);font-size:9px;font-weight:400;fill:#f1f3eeb3;letter-spacing:.1em}
+svg.dimming .tnode:not(.lit),svg.dimming .catnode:not(.lit),svg.dimming .rootnode:not(.lit){opacity:.15}
+svg.dimming .branch:not(.lit),svg.dimming .xlink:not(.lit){opacity:.06}
+svg.dimming .xlink.lit{opacity:.9;stroke:var(--flag)}
+svg.dimming .branch.lit{opacity:1}
+.tree-foot{
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:11px;color:var(--ink-soft);padding:10px 2px;
+}
+
+.mindwrap{
+  position:relative;width:100vw;margin-left:calc(50% - 50vw);
+  height:calc(100vh - 118px);min-height:520px;overflow:hidden;cursor:grab;
+  touch-action:none;background:var(--paper);
+}
+.mindwrap.grabbing{cursor:grabbing}
+.mindwrap svg{width:100%;height:100%;display:block}
+.zoomctl{position:absolute;right:22px;bottom:22px;display:flex;flex-direction:column;gap:8px;z-index:5}
+.zoomctl button{
+  width:38px;height:38px;border-radius:50%;border:1.5px solid var(--ink);
+  background:var(--card);color:var(--ink);font-size:17px;line-height:1;
+}
+.zoomctl button:hover{background:var(--flag);border-color:var(--flag);color:var(--paper)}
+.zoomctl button.viewmode{
+  width:auto;padding:0 12px;height:30px;border-radius:15px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;
+}
+.zoomctl button.viewmode.active{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.mnode.entry text{font-size:12px}
+.pulsering{fill:none;stroke:var(--flag);stroke-width:2;pointer-events:none;animation:entrypulse 2.6s ease-in-out infinite}
+@keyframes entrypulse{0%,100%{opacity:.12}50%{opacity:.85}}
+.mnode{cursor:pointer}
+.glink{fill:none;stroke:var(--ink);stroke-width:1.05;opacity:.75}
+.gnode circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6}
+.gnode text{font-family:var(--mono);font-size:10px;letter-spacing:.08em;fill:var(--ink);
+  paint-order:stroke;stroke:var(--paper);stroke-width:3px;stroke-linejoin:round}
+.rootc circle{fill:var(--ink)}
+.rootc text.namelbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.3em;fill:var(--ink-soft)}
+.mnode circle.tip{fill:var(--ink);stroke:var(--ink);stroke-width:1.2}
+.mnode.unv circle.tip{fill:var(--paper);stroke:var(--ink-soft);stroke-dasharray:2 2}
+.mnode.done circle.tip{fill:var(--flag);stroke:var(--flag)}
+.mnode:hover circle.tip,.mnode:focus circle.tip{stroke:var(--flag);stroke-width:2.6}
+.mnode text{
+  font-family:var(--sans);font-size:10.5px;font-weight:600;fill:var(--ink);
+  paint-order:stroke;stroke:var(--paper);stroke-width:3px;stroke-linejoin:round;
+}
+.grovelbl{
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;fill:var(--ink-soft);
+}
+.sedge{fill:none;stroke:var(--ink-soft)}
+.sedge.trailseg{stroke-dasharray:2 4;stroke-width:1.5;opacity:.55}
+.sedge.crossp{stroke-dasharray:6 5;stroke-width:1.1;opacity:.3}
+#dtSvg.dimming .mnode:not(.lit){opacity:.12}
+#dtSvg.dimming .glink{opacity:.08}
+#dtSvg.dimming .gnode,#dtSvg.dimming .rootc{opacity:.2}
+#dtSvg.dimming .sedge:not(.lit){opacity:.04}
+#dtSvg.dimming .sedge.lit{opacity:.95;stroke:var(--flag);stroke-width:2}
+
+.snode{cursor:pointer}
+.snode text{
+  font-family:var(--sans);font-size:10.5px;font-weight:600;fill:var(--ink);
+  paint-order:stroke;stroke:var(--card);stroke-width:3.5px;stroke-linejoin:round;
+}
+.snode:hover circle.sk,.snode:focus circle.sk{stroke:var(--flag);stroke-width:2.6}
+.sedge{fill:none;stroke:var(--ink-soft);stroke-width:1.6;opacity:.5}
+.sroot{fill:none;stroke:var(--ink);stroke-linecap:round}
+#dtSvg.dimming .snode:not(.lit){opacity:.12}
+#dtSvg.dimming .sedge:not(.lit){opacity:.06}
+#dtSvg.dimming .sedge.lit{opacity:.95;stroke:var(--flag);stroke-width:2.2}
+
+/* ---------- composable data tree ---------- */
+.pathbar{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:18px;
+  font-family:var(--mono);font-size:12px;color:var(--ink);
+}
+.pb-lbl{font-weight:600;letter-spacing:.1em;color:var(--ink-soft)}
+.pb-brace{font-size:20px;font-weight:600;color:var(--flag)}
+.pathbar select{
+  font-family:var(--mono);font-size:12px;padding:6px 10px;border:1.5px solid var(--ink);
+  border-radius:2px;background:var(--card);color:var(--ink);cursor:pointer;
+}
+.pb-toggle{margin-left:12px;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink-soft);cursor:pointer}
+.ringarc{fill:none;stroke-linecap:round}
+.spoke{stroke:var(--ink-soft);stroke-width:1;opacity:.4;fill:none}
+.pathchip rect{fill:var(--card);stroke:var(--ink);stroke-width:1;rx:3}
+.pathchip text{font-family:var(--mono);font-size:9.5px;fill:var(--ink)}
+.dtcenter circle{fill:var(--ink)}
+.dtcenter text{font-family:var(--mono);font-size:11px;fill:var(--paper);font-weight:600}
+.dleaf{cursor:pointer}
+.dleaf text{
+  font-family:var(--sans);font-size:10.5px;font-weight:600;fill:var(--ink);
+  paint-order:stroke;stroke:var(--card);stroke-width:3px;stroke-linejoin:round;
+}
+.dleaf:hover circle.lf,.dleaf:focus circle.lf{stroke:var(--flag);stroke-width:2.5}
+.plink{fill:none;stroke:var(--ink-soft);stroke-width:1.1;stroke-dasharray:4 4;opacity:.3}
+#dtSvg.dimming .dleaf:not(.lit){opacity:.1}
+#dtSvg.dimming .spoke,#dtSvg.dimming .ringarc,#dtSvg.dimming .pathchip{opacity:.12}
+#dtSvg.dimming .plink:not(.lit){opacity:.04}
+#dtSvg.dimming .plink.lit{opacity:.95;stroke:var(--flag);stroke-width:1.6}
+#dtSvg.dimming .dleaf.lit text{opacity:1}
+
+.pb-path{
+  font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);letter-spacing:.04em;
+  border:1px dashed var(--ink-soft);border-radius:2px;padding:5px 10px;margin-left:4px;
+}
+.pathbar .lens.active,.pathbar .subchip.active{background:var(--ink);color:var(--paper)}
+.seqbar{
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 2px 2px;
+  font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);
+}
+.seqbar .seqlbl{letter-spacing:.12em}
+.seqchip{
+  font-family:var(--mono);font-size:10.5px;padding:5px 10px;border:1px solid var(--line);
+  border-radius:2px;background:var(--card);color:var(--ink);cursor:default;line-height:1.7;
+}
+.seqchip:hover{border-color:var(--flag)}
+.seqchip .arr{color:var(--flag);font-weight:600}
+.leafnum{font-family:var(--mono);font-size:7.5px;fill:#fff;font-weight:600}
+
+.tpage{max-width:880px;margin:0 auto;padding:34px 20px 80px}
+.tpage .backlink{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-soft);text-decoration:none;border:none}
+.tpage .backlink:hover{color:var(--flag)}
+.tpage h1{font-size:clamp(26px,4vw,40px);line-height:1.1;margin:14px 0 10px;font-stretch:115%}
+.tpage .tmetaline{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-soft);margin:2px 0 18px}
+.tvid{margin:0 0 26px}
+.tvid figcaption{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-soft);margin-bottom:8px}
+.tvidbox{position:relative;width:100%;aspect-ratio:16/9;border:1px solid var(--line);background:var(--card)}
+.tvidbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.tlinkrow{display:flex;align-items:center;gap:14px;padding:14px 4px;border-top:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.tlinkrow:last-of-type{border-bottom:1px solid var(--line)}
+.tlinkrow .t{flex:1;font-weight:600}
+.tlinkrow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--ink-soft);border:1px solid var(--line);padding:2px 7px;border-radius:2px}
+a.tlinkrow:hover .t{color:var(--flag)}
+
+.tmeta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.tpage .tmeta span{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;border:1px solid var(--line);padding:4px 9px;border-radius:2px;color:var(--ink-soft)}
+.tpage .tsum{font-size:16.5px;line-height:1.65;max-width:64ch;margin-bottom:26px}
+.tpage h2{font-size:13px;font-family:var(--mono);letter-spacing:.14em;color:var(--ink-soft);margin:30px 0 10px;font-weight:600}
+.tsteps{list-style:none;margin:0;padding:0;counter-reset:tstep}
+.tsteps li{border-top:1px solid var(--line);counter-increment:tstep}
+.tsteps li:last-child{border-bottom:1px solid var(--line)}
+.tsteps a,.tsteps .nostep{display:flex;align-items:center;gap:14px;padding:13px 4px;text-decoration:none;border:none;color:var(--ink)}
+.tsteps li::marker{content:""}
+.tsteps .n{font-family:var(--mono);font-size:11px;color:var(--ink-soft);min-width:22px}
+.tsteps .n::before{content:counter(tstep,decimal-leading-zero)}
+.tsteps .t{flex:1;font-weight:600}
+.tsteps .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--ink-soft);border:1px solid var(--line);padding:2px 7px;border-radius:2px}
+.tsteps a:hover .t{color:var(--flag)}
+.tres{list-style:none;margin:0;padding:0}
+.tres li{padding:6px 0}
+.tres a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--flag);text-underline-offset:2px;border:none}
+.tres a:hover{color:var(--flag)}
+.tchips{display:flex;flex-wrap:wrap;gap:8px}
+.tchips button{font-size:12px;padding:6px 12px}
+.tcheck{margin-top:34px;display:flex;align-items:center;gap:14px}
+.tverify{font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);margin-top:26px;border-top:1px solid var(--line);padding-top:14px}
+
+/* ---------- growth view ---------- */
+.gbranch{fill:none;stroke:var(--ink);stroke-linecap:round}
+.gtrunk{fill:none;stroke:var(--ink);stroke-linecap:round}
+.gground{stroke:var(--ink);stroke-width:1.5}
+.ggrass{stroke:var(--ink-soft);stroke-width:1}
+.glabel{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;fill:var(--ink);font-weight:600}
+.gnote{font-family:var(--mono);font-size:10px;letter-spacing:.14em;fill:var(--ink-soft)}
+.gleaf{cursor:pointer}
+.gleaf text{
+  font-family:var(--sans);font-size:11.5px;font-weight:600;fill:var(--ink);
+  opacity:0;transition:opacity .12s ease;
+  paint-order:stroke;stroke:var(--card);stroke-width:3.5px;stroke-linejoin:round;
+}
+.gleaf:hover text,.gleaf:focus text{opacity:1}
+.gleaf:hover circle.leaf,.gleaf:focus circle.leaf{stroke:var(--flag);stroke-width:2.5}
+.gstat{font-family:var(--mono)}
+.gstat .big{font-size:30px;font-weight:600;color:var(--ink);font-family:var(--sans);font-weight:850;font-stretch:112%}
+.gstat .lbl{font-size:10px;letter-spacing:.12em;color:var(--ink-soft);text-transform:uppercase;margin-top:2px}
+
+/* ---------- check-in / progress ---------- */
+.progresschip{
+  font-family:var(--mono);font-size:11.5px;border:1px solid var(--ink);border-radius:20px;
+  padding:5px 12px;background:var(--card);color:var(--verified);white-space:nowrap;font-weight:600;
+}
+.progresschip:hover{background:var(--paper-2)}
+.badge.donetag{color:var(--flag);background:#e8551c12}
+.stop .n.dn{background:var(--verified)}
+.pbar{height:4px;background:var(--paper-2);border-radius:2px;margin:10px 0 2px;max-width:640px;overflow:hidden}
+.pfill{height:100%;background:var(--verified);border-radius:2px}
+
+/* ---------- index view ---------- */
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:6px 0 20px;border-bottom:1px solid var(--line)}
+.filters .flabel{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-soft);margin:0 4px 0 12px}
+.filters .flabel:first-child{margin-left:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px;padding-top:20px}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:16px 16px 14px;display:flex;flex-direction:column;gap:9px;
+  cursor:pointer;position:relative;border-left:3px solid var(--line);
+  transition:transform .12s ease, box-shadow .12s ease;
+  text-align:left;width:100%;
+}
+.card:hover{transform:translateY(-2px);box-shadow:0 3px 0 var(--ink);border-color:var(--ink)}
+.card .cat{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em}
+.card h3{font-size:16.5px;font-weight:700;line-height:1.25}
+.card .meta{font-family:var(--mono);font-size:11px;color:var(--ink-soft)}
+.card .sum{font-size:13px;color:var(--ink-soft);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card .foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:6px}
+.card .who{font-family:var(--mono);font-size:11px;color:var(--ink-soft)}
+.count{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);padding-top:14px}
+
+/* ---------- trails view ---------- */
+.trail{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);margin-top:18px;padding:22px 22px 18px}
+.trail h3{font-size:21px;font-weight:800;font-stretch:110%}
+.trail .tmeta{font-family:var(--mono);font-size:11px;color:var(--ink-soft);margin:4px 0 6px}
+.trail p{color:var(--ink-soft);font-size:13.5px;max-width:640px}
+.stops{display:flex;flex-wrap:wrap;align-items:center;gap:0;margin-top:16px}
+.stop{
+  display:flex;align-items:center;gap:9px;background:var(--paper);
+  border:1px solid var(--ink);border-radius:2px;padding:8px 12px;font-size:13px;font-weight:600;
+}
+.stop:hover{background:var(--paper-2)}
+.stop .n{
+  font-family:var(--mono);font-size:10.5px;color:var(--paper);background:var(--ink);
+  width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex:none;
+}
+.stop .st{width:7px;height:7px;border-radius:50%;flex:none}
+.connector{width:26px;height:1.5px;border-top:2px dashed var(--ink-soft);margin:0 2px;flex:none}
+
+/* ---------- courses ---------- */
+.ccode{
+  font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.06em;
+  background:var(--ink);color:var(--paper);padding:3px 10px;border-radius:2px;white-space:nowrap;
+}
+.modlabel{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft);margin:18px 0 2px;display:flex;align-items:center;gap:10px;
+}
+.modlabel::before{content:"";width:14px;height:1.5px;background:var(--flag)}
+.tmeta a{color:var(--ink);text-decoration-color:var(--flag)}
+.tmeta a:hover{color:var(--flag)}
+
+/* ---------- contribute view ---------- */
+.c-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;padding-top:22px;align-items:start}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.panel h3{font-size:17px;font-weight:800;font-stretch:110%;margin-bottom:12px}
+.wsteps{display:flex;flex-direction:column;gap:0;margin-top:6px}
+.wstep{display:grid;grid-template-columns:34px 1fr;gap:14px;padding:14px 0;border-top:1px dashed var(--line)}
+.wstep:first-child{border-top:none}
+.wstep .wn{
+  font-family:var(--mono);font-size:12px;font-weight:600;width:30px;height:30px;border:1.5px solid var(--ink);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--paper);
+}
+.wstep h4{font-size:14.5px;font-weight:700}
+.wstep p{font-size:13px;color:var(--ink-soft);margin-top:3px}
+.form-row{display:flex;flex-direction:column;gap:5px;margin-bottom:13px}
+.form-row label{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-soft)}
+.form-row input,.form-row select,.form-row textarea{
+  font-family:inherit;font-size:13.5px;padding:9px 11px;border:1px solid var(--ink);
+  border-radius:var(--radius);background:var(--paper);color:var(--ink);
+}
+.form-row textarea{min-height:74px;resize:vertical}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--ink);
+  background:var(--ink);color:var(--paper);padding:9px 18px;border-radius:var(--radius);
+  font-size:13px;font-weight:700;letter-spacing:.04em;
+}
+.btn:hover{background:var(--flag);border-color:var(--flag)}
+.btn.ghost{background:var(--card);color:var(--ink)}
+.btn.ghost:hover{background:var(--paper-2);border-color:var(--ink);color:var(--ink)}
+.pipeline{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+.pipeline th{
+  font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--ink-soft);text-align:left;padding:8px 10px;border-bottom:1.5px solid var(--ink);
+}
+.pipeline td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.pipeline tr:hover td{background:var(--paper-2);cursor:pointer}
+.sysnote{
+  font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);
+  background:var(--paper);border:1px dashed var(--ink-soft);border-radius:var(--radius);
+  padding:12px 14px;line-height:1.6;margin-top:14px;
+}
+.toast{
+  position:fixed;bottom:22px;left:50%;transform:translateX(-50%);
+  background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:12px;
+  padding:10px 18px;border-radius:var(--radius);z-index:90;display:none;
+}
+
+/* ---------- drawer ---------- */
+.drawer{
+  position:fixed;top:0;right:-560px;width:min(540px,100vw);height:100vh;z-index:70;
+  background:var(--card);border-left:1.5px solid var(--ink);
+  transition:right .22s ease;overflow-y:auto;
+}
+.drawer.open{right:0}
+.drawer-inner{padding:26px 28px 60px}
+.drawer .close{
+  position:sticky;top:14px;float:right;border:1px solid var(--ink);background:var(--paper);
+  width:32px;height:32px;border-radius:50%;font-size:15px;line-height:1;
+}
+.drawer .close:hover{background:var(--flag);color:var(--paper);border-color:var(--flag)}
+.d-cat{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.14em}
+.drawer h2{font-size:26px;font-weight:800;font-stretch:110%;line-height:1.12;margin:8px 0 14px;max-width:400px}
+.d-meta{
+  display:grid;grid-template-columns:auto 1fr;gap:6px 16px;
+  font-family:var(--mono);font-size:11.5px;margin:16px 0;
+  border-top:1.5px solid var(--ink);border-bottom:1px solid var(--line);padding:14px 0;
+}
+.d-meta dt{color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;font-size:10px;padding-top:2px}
+.d-meta dd{color:var(--ink)}
+.drawer .sum{font-size:14px;color:var(--ink-soft)}
+.d-h{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-soft);margin:24px 0 10px;display:flex;align-items:center;gap:10px}
+.d-h::after{content:"";flex:1;height:1px;background:var(--line)}
+.steplist{list-style:none;counter-reset:s}
+.steplist li{
+  counter-increment:s;display:flex;gap:12px;align-items:baseline;
+  padding:9px 0;border-bottom:1px dashed var(--line);font-size:13.5px;
+}
+.steplist li::before{
+  content:counter(s,decimal-leading-zero);font-family:var(--mono);font-size:11px;color:var(--flag);font-weight:600;
+}
+.steplist .stype{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;border:1px solid var(--line);padding:1px 7px;border-radius:10px}
+.reslist{list-style:none}
+.reslist li{padding:7px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.reslist li::before{content:"↳ ";font-family:var(--mono);color:var(--flag)}
+.steplist a,.reslist a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--flag);text-underline-offset:2px}
+.steplist a:hover,.reslist a:hover{color:var(--flag)}
+.prereqs{display:flex;flex-wrap:wrap;gap:8px}
+.prereqs button{font-weight:600}
+.d-verif{
+  margin-top:26px;padding:13px 15px;border-radius:var(--radius);
+  font-size:12.5px;line-height:1.5;border:1px solid var(--line);background:var(--paper);
+  color:var(--ink-soft);
+}
+.d-verif b{color:var(--ink)}
+
+/* ---------- footer ---------- */
+footer{
+  border-top:1.5px solid var(--ink);padding:26px 24px 40px;
+  font-family:var(--mono);font-size:11px;color:var(--ink-soft);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width:980px){
+  .c-grid{grid-template-columns:1fr}
+  .tree-intro{grid-template-columns:1fr}
+  .tree-legend{justify-self:start}
+}
+@media (max-width:760px){
+  header{flex-wrap:wrap}
+  .brand{border-right:none;border-bottom:1px solid var(--line);width:100%}
+  nav{overflow-x:auto;width:100%}
+  nav button{padding:12px 16px}
+  .hdr-right{width:100%;padding:10px 18px;border-top:1px solid var(--line)}
+  .search{flex:1}
+  .search input{width:100%}
+}
+</style>
+</head>
+<body>
+<pre id="diagpanel" style="display:none;position:fixed;right:8px;top:60px;z-index:98;background:#16281f;color:#e8ede4;font:10px/1.6 monospace;padding:10px 12px;max-width:320px;border-radius:4px;white-space:pre-wrap"></pre>
+<div id="errbar" style="display:none;position:fixed;left:0;right:0;bottom:0;z-index:99;background:#b3261e;color:#fff;font:12px/1.5 monospace;padding:8px 14px"></div>
+<script>
+window.addEventListener("error",e=>{const b=document.getElementById("errbar");b.style.display="block";b.textContent="Error: "+(e.message||e.type)+(e.lineno?" @"+e.lineno:"");});
+window.__diag=[];
+window.__dlog=m=>{window.__diag.push(m);if(window.__diag.length>12)window.__diag.shift();const p=document.getElementById("diagpanel");if(p&&p.style.display!=="none")p.textContent=window.__diag.join("\n");};
+document.addEventListener("click",e=>{window.__dlog("click → "+(e.target.closest("[data-id]")?.dataset.id||e.target.closest("button")?.textContent||e.target.tagName));},true);
+window.addEventListener("unhandledrejection",e=>{const b=document.getElementById("errbar");b.style.display="block";b.textContent="Error: "+String(e.reason).slice(0,200);});
+</script>
+
+
+<header>
+  <div class="brand">
+    <h1>TECH KNOWLEDGE<span class="tick">/</span>TREE</h1>
+    <div class="sub" id="brandSub">UBC SALA · TUTORIALS + WORKFLOWS</div>
+  </div>
+  <nav id="nav">
+    <button data-view="tree" class="active">Tree</button>
+    <button data-view="index">Index</button>
+    <button data-view="courses">Courses</button>
+  </nav>
+  <div class="hdr-right">
+    <button class="progresschip" id="progressChip" title="Skills you have checked in. Click to see your tree grow.">✓ 0</button>
+    <div class="search">
+      <span class="glyph">⌕</span>
+      <input id="searchInput" type="search" placeholder="search tutorials, software..." aria-label="Search tutorials">
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- TREE: mind map, full-bleed canvas -->
+  <section class="view active" id="view-tree">
+    <div class="mindwrap" id="mindwrap">
+      <svg id="dtSvg" role="img" aria-label="Grasshopper knowledge mind map"></svg>
+      <div class="zoomctl">
+        <button id="vplan" class="viewmode active" aria-label="Plan view">PLAN</button>
+        <button id="velev" class="viewmode" aria-label="Elevation view">ELEV</button>
+        <button id="zin" aria-label="Zoom in">+</button>
+        <button id="zout" aria-label="Zoom out">−</button>
+        <button id="zfit" aria-label="Reset view">⌖</button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- TUTORIAL PAGE -->
+  <section class="view" id="view-tutorial">
+    <div class="tpage" id="tpageInner"></div>
+  </section>
+
+  <!-- INDEX -->
+  <section class="view" id="view-index">
+    <div class="view-head">
+      <div>
+        <div class="eyebrow">Field index</div>
+        <h2>Browse everything</h2>
+        <p>Filter by branch, level, software, or review status. Every entry lists its contributor and when it was last checked.</p>
+      </div>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="count" id="indexCount"></div>
+    <div class="grid" id="cardGrid"></div>
+  </section>
+
+  <!-- COURSES -->
+  <section class="view" id="view-courses">
+    <div class="view-head">
+      <div>
+        <div class="eyebrow">One pool, many paths</div>
+        <h2>Courses</h2>
+        <p>All tutorials live in one shared pool. Each course instructor defines their own path through it: an ordered sequence, grouped into modules or weeks. The same tutorial can serve many courses.</p>
+      </div>
+    </div>
+    <div id="courseList"></div>
+  </section>
+
+  <!-- CONTRIBUTE -->
+
+</main>
+
+
+<!-- drawer -->
+<div class="toast" id="toast"></div>
+
+<script>
+let DATA = /*__CONTENT__*/{"site":{"name":"SALA Tech Knowledge Tree","subtitle":"The Grasshopper knowledge tree for architecture and landscape architecture","school":"UBC SALA","validationNote":"All verified material has been reviewed by the SALA faculty tutorial team."},"categories":[{"id":"foundations","name":"Foundations","color":"#4A6B55","blurb":"Core design software every student needs early: Adobe suite and Rhino."},{"id":"computational","name":"Computational","color":"#5E7F98","blurb":"Grasshopper, scripting, and parametric thinking."},{"id":"ai","name":"AI Methods","color":"#7A5C8E","blurb":"Generative tools, LLM workflows, and critical AI literacy for designers."},{"id":"building-performance","name":"Building Performance","color":"#2F7E82","blurb":"Energy, daylight, comfort, and environmental simulation."},{"id":"fabrication","name":"Fabrication","color":"#B0562F","blurb":"Laser, CNC, and robotic fabrication in the shop."},{"id":"site-data","name":"Site + Data","color":"#9C7A2E","blurb":"GIS, capture, point clouds, and environmental data for site work."},{"id":"representation","name":"Representation","color":"#6B6B72","blurb":"Drawing standards, rendering, and visual communication."}],"levels":["beginner","intermediate","advanced"],"statuses":{"verified":"Reviewed and approved by the faculty tutorial team","in_review":"Submitted and awaiting faculty review","draft":"In preparation by the contributor"},"tutorials":[{"id":"gh-1-1","title":"1.1 What Grasshopper Is","category":"computational","software":["Grasshopper"],"level":"beginner","format":"mixed resources","duration":"self-paced","summary":"Visual programming and parametric thinking, and how Grasshopper relates to Rhino.","steps":[{"type":"text","title":"Getting started guide","url":"https://medium.com/intro-to-grasshopper/getting-started-with-grasshopper-c6d9e66a4638"},{"type":"video","title":"Introduction video","url":"https://youtu.be/Il2OjDH9eF8"}],"resources":[],"contributor":{"name":"Curated external resources","role":"Collected by SALA colleagues"},"prerequisites":[],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":1,"order":1},{"id":"gh-1-2","title":"1.2 Interface and Canvas","category":"computational","software":["Grasshopper"],"level":"beginner","format":"mixed resources","duration":"self-paced","summary":"The canvas, navigation, and finding components.","steps":[{"type":"text","title":"Navigating the canvas","url":"https://medium.com/intro-to-grasshopper/navigating-the-canvas-ab9ab46d8f8e"},{"type":"video","title":"Interface walkthrough","url":"https://www.youtube.com/watch?v=0HoOkWAA0l8"}],"resources":[],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-1-1"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":1,"order":2},{"id":"gh-1-3","title":"1.3 Anatomy of a Definition","category":"computational","software":["Grasshopper"],"level":"beginner","format":"mixed resources","duration":"self-paced","summary":"Components, inputs and outputs, wires, and the direction of data flow.","steps":[{"type":"text","title":"Anatomy of a definition","url":"https://medium.com/intro-to-grasshopper/anatomy-of-a-definition-1dc644e13212"}],"resources":[],"contributor":{"name":"Curated external resources","role":"Collected by SALA colleagues"},"prerequisites":["gh-1-2"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":1,"order":3},{"id":"gh-1-4","title":"1.4 Sliders, Panels, Baking","category":"computational","software":["Grasshopper"],"level":"beginner","format":"mixed resources","duration":"self-paced","summary":"Parameters as controls, inspecting data, baking geometry back to Rhino, and keeping .gh and .3dm in sync.","steps":[{"type":"text","title":"Tutorial page: components, sliders, baking (starter files included)","url":"https://genenv.github.io/des212-2026/pages/tutorial-1-1.html"}],"resources":[{"label":"Basic components starter file (.gh)","url":"https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%201/GH%20Components%20Basics.gh"}],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-1-3"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":1,"order":4},{"id":"gh-1-5","title":"1.5 Exercise: First Definition","category":"computational","software":["Grasshopper"],"level":"beginner","format":"mixed resources","duration":"self-paced","summary":"Build your first parametric model end to end.","steps":[{"type":"text","title":"Exercise: Hello Grasshopper","url":"https://medium.com/intro-to-grasshopper/exercise-hello-grasshopper-c3cd53dd19d5?sk=86b6b3a70fa990730e02552e56db38c9"},{"type":"video","title":"Practice 1","url":"https://www.youtube.com/watch?v=GEVUv-G8ESA"},{"type":"video","title":"Practice 2","url":"https://www.youtube.com/watch?v=LvlUjEsT-h0"},{"type":"video","title":"Practice 3","url":"https://www.youtube.com/watch?v=SNZH_bDYiNw"}],"resources":[],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-1-4"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":1,"order":5},{"id":"gh-2-1","title":"2.1 Data Types and Domains","category":"computational","software":["Grasshopper"],"level":"beginner","format":"planned","duration":"tbd","summary":"Numbers, points, and geometry as data; intervals and domains. Planned section: no dedicated resource yet.","steps":[],"resources":[],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-1-5"],"tags":[],"status":"draft","verifiedBy":"","updated":"2026-08","chapter":2,"order":1},{"id":"gh-2-2","title":"2.2 Making and Reading Lists","category":"computational","software":["Grasshopper"],"level":"beginner","format":"mixed resources","duration":"self-paced","summary":"Creating lists, reading them with panels and viewers, lengths and indices.","steps":[{"type":"text","title":"Working with lists","url":"https://medium.com/intro-to-grasshopper/working-with-lists-e9ce209f0bd5"},{"type":"video","title":"Intro to lists","url":"https://youtu.be/Am8wLTam_cc"}],"resources":[],"contributor":{"name":"Curated external resources","role":"Collected by SALA colleagues"},"prerequisites":["gh-2-1"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":2,"order":2},{"id":"gh-2-3","title":"2.3 List Operations","category":"computational","software":["Grasshopper"],"level":"beginner","format":"mixed resources","duration":"self-paced","summary":"Item, shift, cull, sort, weave, and combining lists.","steps":[{"type":"video","title":"Editing and combining lists","url":"https://youtu.be/sBDwmPyCZ6g"}],"resources":[],"contributor":{"name":"Curated external resources","role":"Collected by SALA colleagues"},"prerequisites":["gh-2-2"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":2,"order":3},{"id":"gh-2-4","title":"2.4 Generating Numbers","category":"computational","software":["Grasshopper"],"level":"beginner","format":"planned","duration":"tbd","summary":"Series versus range and why the difference matters. Planned section: no dedicated resource yet.","steps":[],"resources":[],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-2-3"],"tags":[],"status":"draft","verifiedBy":"","updated":"2026-08","chapter":2,"order":4},{"id":"gh-2-5","title":"2.5 Exercise: Parametric Tower I","category":"computational","software":["Grasshopper"],"level":"beginner","format":"mixed resources","duration":"self-paced","summary":"Apply list logic in the first tower exercise.","steps":[{"type":"text","title":"Exercise: Parametric Tower, part 1","url":"https://medium.com/intro-to-grasshopper/exercise-parametric-tower-part-1-bdbad26bc6ca"},{"type":"video","title":"Tower walkthrough","url":"https://youtu.be/C_tM_v9Zdag"}],"resources":[],"contributor":{"name":"Curated external resources","role":"Collected by SALA colleagues"},"prerequisites":["gh-2-4"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":2,"order":5},{"id":"gh-3-1","title":"3.1 Points and Vectors","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"mixed resources","duration":"self-paced","summary":"Position versus direction; the vector math designers actually need.","steps":[{"type":"text","title":"Vectors reference page (files included)","url":"https://genenv.github.io/des212-2026/pages/vectors-in-grasshopper.html"},{"type":"video","title":"Geometry basics","url":"https://youtu.be/3ef_M3cw-2w"}],"resources":[{"label":"Vectors and Planes.3dm","url":"https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%201/Vectors%20and%20Planes.3dm"},{"label":"Vectors and Planes.gh","url":"https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%201/Vectors%20and%20Planes-1.gh"}],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-1-5"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":3,"order":1},{"id":"gh-3-2","title":"3.2 Curves","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"mixed resources","duration":"self-paced","summary":"Curve creation and analysis: divide, evaluate, and curve parameters.","steps":[{"type":"video","title":"Curve functionality","url":"https://youtu.be/JrDduldZ2tM"}],"resources":[],"contributor":{"name":"Curated external resources","role":"Collected by SALA colleagues"},"prerequisites":["gh-3-1"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":3,"order":2},{"id":"gh-3-3","title":"3.3 Planes and Coordinate Systems","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"mixed resources","duration":"self-paced","summary":"Local frames for placement and orientation: the second secret ingredient of parametric design.","steps":[{"type":"text","title":"Planes reference page","url":"https://genenv.github.io/des212-2026/pages/planes-in-grasshopper.html"}],"resources":[],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-3-2"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":3,"order":3},{"id":"gh-3-4","title":"3.4 Surfaces and UV Space","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"planned","duration":"tbd","summary":"Surface creation, evaluation, and isocurves. Planned section: no dedicated resource yet.","steps":[],"resources":[],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-3-3"],"tags":[],"status":"draft","verifiedBy":"","updated":"2026-08","chapter":3,"order":4},{"id":"gh-3-5","title":"3.5 Transformations","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"mixed resources","duration":"self-paced","summary":"Move, rotate, scale, orient, and morph, built on vectors and planes.","steps":[{"type":"text","title":"Transformations reference page (files included)","url":"https://genenv.github.io/des212-2026/pages/transformations-in-grasshopper.html"},{"type":"video","title":"Transforming geometry","url":"https://youtu.be/XWNzRBorXDk"}],"resources":[{"label":"Transformation-Morph.3dm","url":"https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%201/Transformation-Morph.3dm"},{"label":"Transformation-Morph.gh","url":"https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%201/Transformation-Morph.gh"}],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-3-4"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":3,"order":5},{"id":"gh-4-1","title":"4.1 Why Data Trees Exist","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"mixed resources","duration":"self-paced","summary":"Paths and branches: the concept behind most Grasshopper errors.","steps":[{"type":"text","title":"Working with data trees","url":"https://medium.com/intro-to-grasshopper/working-with-datatrees-179be560f086?sk=0c0755e369f9337e8c882874c20ff95b"},{"type":"video","title":"Intro to data structures","url":"https://youtu.be/XIV0uQ6ZOjI"},{"type":"video","title":"Five-part data structure series","url":"https://www.youtube.com/playlist?list=PL5TCFBlAxkAgTdBm-P-7DJu8MkG_B0gUa"}],"resources":[],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-2-5"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":4,"order":1},{"id":"gh-4-2","title":"4.2 Graft, Flatten, Simplify","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"mixed resources","duration":"self-paced","summary":"Tree operations used with intent rather than superstition.","steps":[{"type":"text","title":"Attractors and data structure tutorial page (files included)","url":"https://genenv.github.io/des212-2026/pages/tutorial-1-2.html"}],"resources":[],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-4-1"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":4,"order":2},{"id":"gh-4-3","title":"4.3 Tree Matching","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"mixed resources","duration":"self-paced","summary":"How components pair branches and items across inputs.","steps":[{"type":"video","title":"Data structures II","url":"https://youtu.be/QE68l1Fp7-c"}],"resources":[],"contributor":{"name":"Curated external resources","role":"Collected by SALA colleagues"},"prerequisites":["gh-4-2"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":4,"order":3},{"id":"gh-4-4","title":"4.4 Path Mapper","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"mixed resources","duration":"self-paced","summary":"Advanced tree restructuring with the Path Mapper.","steps":[{"type":"video","title":"Using the Path Mapper","url":"https://youtu.be/Tlme9tkpYHo"}],"resources":[],"contributor":{"name":"Curated external resources","role":"Collected by SALA colleagues"},"prerequisites":["gh-4-3"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":4,"order":4},{"id":"gh-4-5","title":"4.5 Exercise: Parametric Tower II","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"mixed resources","duration":"self-paced","summary":"Apply data tree logic in part two of the tower.","steps":[{"type":"text","title":"Exercise: Parametric Tower, part 2","url":"https://medium.com/intro-to-grasshopper/exercise-parametric-tower-part-2-2052c179c6e1"}],"resources":[],"contributor":{"name":"Curated external resources","role":"Collected by SALA colleagues"},"prerequisites":["gh-4-4"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":4,"order":5},{"id":"gh-5-1","title":"5.1 Attractors","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"mixed resources","duration":"self-paced","summary":"Point, curve, and multiple attractors: distance as a design driver.","steps":[{"type":"text","title":"Attractors tutorial page (videos + files)","url":"https://genenv.github.io/des212-2026/pages/tutorial-1-2.html"},{"type":"video","title":"Grid attractors: Keio paving","url":"https://www.youtube.com/watch?v=8O6ZdzTGVZw"},{"type":"video","title":"Attractor points: intro","url":"https://youtu.be/Vyst-H_muuI"},{"type":"video","title":"Attractor points: example","url":"https://youtu.be/r_1FSc6k7-8"}],"resources":[],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-4-5"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":5,"order":1},{"id":"gh-5-2","title":"5.2 Remapping Numbers","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"mixed resources","duration":"self-paced","summary":"Graph Mapper and remap domains: shaping how values drive form.","steps":[{"type":"video","title":"Using the Graph Mapper","url":"https://youtu.be/3FA_1sL6J0w"}],"resources":[],"contributor":{"name":"Curated external resources","role":"Collected by SALA colleagues"},"prerequisites":["gh-5-1"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":5,"order":2},{"id":"gh-5-3","title":"5.3 Grids, Voronoi, Subdivision","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"mixed resources","duration":"self-paced","summary":"Pattern systems: grids, Voronoi, and stochastic subdivision.","steps":[{"type":"video","title":"Stochastic systems and 3D Voronoi","url":"https://www.youtube.com/watch?v=Nc1eSjw2elg"},{"type":"video","title":"Voronoi pattern","url":"https://youtu.be/dt4Gpaw4tEM"}],"resources":[],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-5-2"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":5,"order":3},{"id":"gh-5-4","title":"5.4 Randomness and Seeds","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"planned","duration":"tbd","summary":"Random, jitter, and repeatability. Planned section: no dedicated resource yet.","steps":[],"resources":[],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-5-3"],"tags":[],"status":"draft","verifiedBy":"","updated":"2026-08","chapter":5,"order":4},{"id":"gh-6-1","title":"6.1 Surface Subdivision","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"planned","duration":"tbd","summary":"Isotrim and divide surface: the paneling foundation. Planned section: no dedicated resource yet.","steps":[],"resources":[],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-4-5","gh-3-4"],"tags":[],"status":"draft","verifiedBy":"","updated":"2026-08","chapter":6,"order":1},{"id":"gh-6-2","title":"6.2 Structures on Surfaces","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"mixed resources","duration":"self-paced","summary":"Subdividing a surface to place a structural system.","steps":[{"type":"video","title":"Structures on surfaces","url":"https://youtu.be/pbrlZsjI58c"}],"resources":[],"contributor":{"name":"Curated external resources","role":"Collected by SALA colleagues"},"prerequisites":["gh-6-1"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":6,"order":2},{"id":"gh-6-3","title":"6.3 Project: Bench, Tower, Space Frame","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"mixed resources","duration":"self-paced","summary":"Complete small projects that put chapters 1 to 6 together.","steps":[{"type":"video","title":"Parametric bench","url":"https://youtu.be/03R1vXfIZF4"},{"type":"video","title":"Roof space frame","url":"https://youtu.be/qNJ9FWrl-Wk"}],"resources":[],"contributor":{"name":"Curated external resources","role":"Collected by SALA colleagues"},"prerequisites":["gh-6-2"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":6,"order":3},{"id":"gh-7-1","title":"7.1 Baking, Layers, Attributes","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"planned","duration":"tbd","summary":"Getting organized geometry out of a definition. Planned section: no dedicated resource yet.","steps":[],"resources":[],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-4-5"],"tags":[],"status":"draft","verifiedBy":"","updated":"2026-08","chapter":7,"order":1},{"id":"gh-7-2","title":"7.2 Definition Hygiene","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"mixed resources","duration":"self-paced","summary":"Groups, annotation, and clusters: definitions that other people can read.","steps":[{"type":"video","title":"Organizing the Grasshopper workspace","url":"https://www.youtube.com/watch?v=dAHP0M2GgCs"}],"resources":[],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-7-1"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":7,"order":2},{"id":"gh-7-3","title":"7.3 Plugins","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"mixed resources","duration":"self-paced","summary":"Finding, installing, and managing Grasshopper plugins.","steps":[{"type":"text","title":"Plugin installation guide","url":"https://genenv.github.io/des212-2026/pages/grasshopper-plugin-installation.html"},{"type":"video","title":"Importing plugins","url":"https://youtu.be/74P-7YME1hM"}],"resources":[],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-7-2"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":7,"order":3},{"id":"gh-8-1","title":"8.1 Terrain and Topography","category":"computational","software":["Grasshopper"],"level":"intermediate","format":"mixed resources","duration":"self-paced","summary":"Terrain from contours and data.","steps":[{"type":"text","title":"Grasshopper Basic + Topography (notes)","url":"https://app.notion.com/p/3ec3b7ec1ca14ed7aa7dbd44b7adaa2d"}],"resources":[],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-3-5"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":8,"order":1},{"id":"gh-8-2","title":"8.2 Site Data","category":"computational","software":["Grasshopper"],"level":"advanced","format":"mixed resources","duration":"self-paced","summary":"OSM to 3D site model with Caribou; shapefiles and spreadsheets into Grasshopper.","steps":[{"type":"text","title":"Spatial data tutorial page (files included)","url":"https://genenv.github.io/des212-2026/pages/tutorial-3-1.html"},{"type":"video","title":"OSM to 3D with Caribou","url":"https://www.youtube.com/watch?v=6R2cKahYGGg"}],"resources":[{"label":"Caribou Basics.gh","url":"https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%202/Caribou%20Basics.gh"},{"label":"GH Data Import.zip","url":"https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%203/GH%20Data%20Import.zip"},{"label":"Vancouver Open Data Portal","url":"https://opendata.vancouver.ca"}],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-4-5"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":8,"order":2},{"id":"gh-8-3","title":"8.3 Environmental Simulation","category":"computational","software":["Grasshopper"],"level":"advanced","format":"mixed resources","duration":"self-paced","summary":"Ladybug: EPW weather data, sun, radiation, and wind on real sites.","steps":[{"type":"text","title":"Environmental simulation tutorial page (files included)","url":"https://genenv.github.io/des212-2026/pages/tutorial-3-2.html"},{"type":"video","title":"Weather visualization + radiation demo","url":"https://www.youtube.com/watch?v=-ZvGvFUoKmg"}],"resources":[{"label":"Getting Started with Ladybug.gh","url":"https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%203/Getting%20Started%20with%20Ladybug.gh"},{"label":"EPW Map","url":"https://www.ladybug.tools/epwmap/"}],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-4-5"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":8,"order":3},{"id":"gh-8-4","title":"8.4 Optimization","category":"computational","software":["Grasshopper"],"level":"advanced","format":"mixed resources","duration":"self-paced","summary":"Evolutionary solvers with Galapagos: genome, fitness, and penalty logic.","steps":[{"type":"text","title":"Evolutionary solvers tutorial page (files included)","url":"https://genenv.github.io/des212-2026/pages/tutorial-3-3.html"},{"type":"text","title":"Galapagos step-by-step guide","url":"https://hopific.com/galapagos-grasshopper-tutorial/"},{"type":"video","title":"Optimizing tree placement for shade","url":"https://www.youtube.com/watch?v=IL88wthWRdY"}],"resources":[{"label":"Galapagos Basics Example.gh","url":"https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%203/Galapagos%20Basics%20Example.gh"},{"label":"Solar optimization starter.gh","url":"https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%203/Galapagos%20Solar%20Optimization_To%20Start.gh"}],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-8-3"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":8,"order":4},{"id":"gh-8-5","title":"8.5 Robotic Fabrication","category":"computational","software":["Grasshopper"],"level":"advanced","format":"mixed resources","duration":"self-paced","summary":"Toolpaths from Grasshopper to the UR30 with the Robots plugin.","steps":[{"type":"text","title":"Robotic fabrication tutorial page (files included)","url":"https://genenv.github.io/des212-2026/pages/tutorial-2-3.html"},{"type":"video","title":"Programming the UR30","url":"https://www.youtube.com/watch?v=tKVSZeKMYa8"}],"resources":[{"label":"UR30 Workspace.3dm","url":"https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%202/UR30%20Workspace.3dm"},{"label":"UR30 Simple Toolpath.gh","url":"https://genenv.github.io/des212-2026/files/Tutorial%20Files/Module%202/UR30%20Simple%20Toolpath.gh"}],"contributor":{"name":"Xun Liu","role":"Faculty, Architecture"},"prerequisites":["gh-4-5","gh-3-3"],"tags":[],"status":"in_review","verifiedBy":"","updated":"2026-08","chapter":8,"order":5}],"courses":[{"id":"des212","code":"DES 212","name":"Design Media II","instructor":"Xun Liu","term":"2025W2","url":"https://genenv.github.io/des212-2026/","description":"Parametric design with Rhino and Grasshopper. The course path through the curriculum, in teaching order.","tutorialIds":["gh-1-2","gh-1-4","gh-1-5","gh-5-1","gh-4-1","gh-7-2","gh-3-1","gh-3-3","gh-3-5","gh-8-5","gh-8-2","gh-8-3","gh-8-4"]}],"chapters":[{"num":1,"name":"First Contact"},{"num":2,"name":"Lists"},{"num":3,"name":"Geometry"},{"num":4,"name":"Data Trees"},{"num":5,"name":"Control + Pattern"},{"num":6,"name":"Surfaces + Structures"},{"num":7,"name":"To Deliverable"},{"num":8,"name":"Applied Workflows"}]}/*__END__*/;
+
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const catOf=id=>DATA.categories.find(c=>c.id===id)||{name:id,color:"#888"};
+const tutOf=id=>DATA.tutorials.find(t=>t.id===id);
+const statusLabel={verified:"Verified",in_review:"In review",draft:"Draft"};
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+let activeFilters={category:new Set(),level:new Set(),status:new Set()};
+let searchQuery="";
+
+/* ---------- personal progress (check-in) ----------
+   Stored per browser via localStorage when available; falls back to
+   in-memory for restricted environments. No accounts, no server. */
+const store={
+  _m:{},
+  get(){try{return JSON.parse(localStorage.getItem("sala-ktree-progress")||"{}")}catch(e){return this._m}},
+  set(v){this._m=v;try{localStorage.setItem("sala-ktree-progress",JSON.stringify(v))}catch(e){}}
+};
+let PROGRESS=store.get();
+const isDone=id=>!!PROGRESS[id];
+function toggleDone(id){
+  if(PROGRESS[id]) delete PROGRESS[id];
+  else PROGRESS[id]=new Date().toISOString().slice(0,10);
+  store.set(PROGRESS);
+  renderAll();
+}
+function doneCountAll(){return DATA.tutorials.filter(t=>isDone(t.id)).length}
+
+function toast(msg){
+  const t=$("#toast");t.textContent=msg;t.style.display="block";
+  clearTimeout(t._h);t._h=setTimeout(()=>t.style.display="none",2600);
+}
+
+/* ---------- navigation ---------- */
+function showView(name){
+  document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id==="view-"+name));
+  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===name));
+  window.scrollTo({top:0});
+}
+$("#nav").addEventListener("click",e=>{
+  const b=e.target.closest("button[data-view]");
+  if(b){
+    showView(b.dataset.view);
+    try{if(location.hash.startsWith("#t/"))location.hash="";}catch(_){}
+  }
+});
+
+/* ---------- the skill tree: one node per skill ---------- */
+function wrapTitle(s,max){
+  const words=String(s).split(" ");
+  const lines=[""];
+  for(const w of words){
+    const cur=lines[lines.length-1];
+    if((cur+" "+w).trim().length<=max) lines[lines.length-1]=(cur+" "+w).trim();
+    else lines.push(w);
+  }
+  if(lines.length>2){lines.length=2;lines[1]=lines[1].slice(0,max-1)+"…";}
+  return lines;
+}
+function ancestorsOf(id,acc){
+  acc=acc||new Set();
+  const t=tutOf(id); if(!t)return acc;
+  (t.prerequisites||[]).forEach(p=>{
+    if(!acc.has(p)){acc.add(p);ancestorsOf(p,acc);}
+  });
+  return acc;
+}
+function hash32(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function rng(seed){let a=seed||1;return()=>{a=Math.imul(a^(a>>>15),a|1);a^=a+Math.imul(a^(a>>>7),a|61);return((a^(a>>>14))>>>0)/4294967296;};}
+const MVIEW={s:1,tx:0,ty:0,mode:"plan",rot:45};
+const PALETTE=()=>DATA.categories.map(c=>c.color);
+function polar(cx,cy,r,deg){
+  const rad=(deg-90)*Math.PI/180;
+  return {x:cx+r*Math.cos(rad), y:cy+r*Math.sin(rad)};
+}
+function radialLink(cx,cy,r1,a1,r2,a2){
+  const A=polar(cx,cy,r1,a1), B=polar(cx,cy,r2,a2);
+  const rm=r1+(r2-r1)*0.55;
+  const C1=polar(cx,cy,rm,a1), C2=polar(cx,cy,rm,a2);
+  return `M${A.x.toFixed(1)} ${A.y.toFixed(1)} C ${C1.x.toFixed(1)} ${C1.y.toFixed(1)}, ${C2.x.toFixed(1)} ${C2.y.toFixed(1)}, ${B.x.toFixed(1)} ${B.y.toFixed(1)}`;
+}
+function buildChapterData(){
+  const chapters=(DATA.chapters&&DATA.chapters.length)?DATA.chapters:[{num:1,name:"All"}];
+  const byCh={};chapters.forEach(c=>byCh[c.num]=[]);
+  DATA.tutorials.forEach(t=>{
+    const ch=t.chapter&&byCh[t.chapter]?t.chapter:chapters[0].num;
+    byCh[ch].push(t);
+  });
+  chapters.forEach(c=>byCh[c.num].sort((a,b)=>(a.order||0)-(b.order||0)||a.title.localeCompare(b.title)));
+  let entry=null;
+  const c1=chapters[0];
+  if(c1&&byCh[c1.num].length)entry=byCh[c1.num][0].id;
+  return {chapters,byCh,entry};
+}
+function leafMarkup(t,x,y,side,entry,extra){
+  const unv=t.status==="draft",done=isDone(t.id);
+  const isE=t.id===entry;
+  const short=t.title.length>30?t.title.slice(0,29)+"…":t.title;
+  return `<g class="mnode${unv?" unv":""}${done?" done":""}${isE?" entry":""}" data-id="${t.id}" tabindex="0" role="button" aria-label="${esc(t.title)}"${extra||""}>
+    ${isE?`<circle class="pulsering" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="13"/>`:""}
+    <circle class="tip" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${isE?6.5:5}"/>
+    <circle class="hit" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="14" fill="transparent"/>
+    <text x="${(x+side.dx).toFixed(1)}" y="${(y+side.dy).toFixed(1)}" text-anchor="${side.anchor}"${side.rot?` transform="rotate(${side.rot} ${(x+side.dx).toFixed(1)} ${(y+side.dy).toFixed(1)})"`:""}>${esc(short)}</text>
+    <title>${esc(t.title)}</title>
+  </g>`;
+}
+function crossArcs(pos,cx,cy,pull){
+  let arcs="";
+  DATA.tutorials.forEach(t=>{
+    (t.prerequisites||[]).forEach(p=>{
+      const pt=tutOf(p);
+      if(!pt||!pos[p]||!pos[t.id])return;
+      if(pt.chapter===t.chapter)return;
+      const A=pos[p],B=pos[t.id];
+      const qx=cx+((A.x+B.x)/2-cx)*pull, qy=cy+((A.y+B.y)/2-cy)*pull;
+      arcs+=`<path class="sedge crossp" data-src="${p}" data-tgt="${t.id}" d="M${A.x.toFixed(1)} ${A.y.toFixed(1)} Q ${qx.toFixed(1)} ${qy.toFixed(1)} ${B.x.toFixed(1)} ${B.y.toFixed(1)}"/>`;
+    });
+  });
+  return arcs;
+}
+
+function renderDataTree(){
+  const svg=$("#dtSvg");
+  svg.classList.remove("dimming");
+  if(!DATA.tutorials.length){svg.innerHTML="";return;}
+  try{
+    if(MVIEW.mode==="elev")renderElevView(svg);
+    else renderPlanView(svg);
+  }catch(err){
+    console.error("view render failed, falling back to plan",err);
+    MVIEW.mode="plan";renderPlanView(svg);
+  }
+  applyView();
+}
+
+function renderPlanView(svg){
+  const {chapters,byCh,entry}=buildChapterData();
+  const W=1560,H2=1560,cx=W/2,cy=H2/2;
+  svg.setAttribute("viewBox",`0 0 ${W} ${H2}`);
+  const r1=205,r2=455;
+  const total=DATA.tutorials.length;
+  const gapDeg=4.5;
+  const slot=(360-gapDeg*chapters.length)/Math.max(total,1);
+  let links="",nodes="";
+  const pos={};
+  nodes+=`<g class="rootc"><circle cx="${cx}" cy="${cy}" r="11"/>
+    <text class="namelbl" x="${cx}" y="${cy+38}" text-anchor="middle">GRASSHOPPER</text></g>`;
+  let a=0;
+  chapters.forEach((ch,i)=>{
+    const list=byCh[ch.num];
+    const span=slot*Math.max(list.length,1);
+    const mid=a+span/2;
+    links+=`<path class="glink" d="${radialLink(cx,cy,14,mid,r1-9,mid)}"/>`;
+    const cp=polar(cx,cy,r1,mid);
+    const west=mid>180;
+    const lp=polar(cx,cy,r1+15,mid);
+    nodes+=`<g class="gnode"><circle cx="${cp.x.toFixed(1)}" cy="${cp.y.toFixed(1)}" r="8"/>
+      <text x="${lp.x.toFixed(1)}" y="${(lp.y+3.5).toFixed(1)}" text-anchor="${west?"end":"start"}"
+        transform="rotate(${(west?mid+90:mid-90).toFixed(1)} ${lp.x.toFixed(1)} ${lp.y.toFixed(1)})">${ch.num} · ${esc(String(ch.name).toUpperCase())}</text></g>`;
+    list.forEach((t,j)=>{
+      const la=a+(j+0.5)*slot;
+      links+=`<path class="glink" d="${radialLink(cx,cy,r1+9,mid,r2-7,la)}"/>`;
+      const p=polar(cx,cy,r2,la);
+      pos[t.id]={x:p.x,y:p.y};
+      const west2=la>180;
+      const lp2=polar(cx,cy,r2+14,la);
+      nodes+=leafMarkup(t,p.x,p.y,{dx:lp2.x-p.x,dy:lp2.y-p.y+3.5,anchor:west2?"end":"start",rot:(west2?la+90:la-90).toFixed(1)},entry);
+    });
+    a+=span+gapDeg;
+  });
+  svg.innerHTML=`<g id="vp">${links}${crossArcs(pos,cx,cy,0.22)}${nodes}</g>`;
+}
+
+function renderElevView(svg){
+  const {chapters,byCh,entry}=buildChapterData();
+  const W=1180,H2=2080,cx=W/2;
+  svg.setAttribute("viewBox",`0 0 ${W} ${H2}`);
+  const groundY=H2-110;
+  const n=chapters.length;
+  const chStep=(groundY-330)/Math.max(n,1);
+  let links="",arcs="",nodes="";
+  const pos={};
+
+  // ground + grass + root
+  links+=`<line class="gground" x1="150" y1="${groundY}" x2="${W-150}" y2="${groundY}"/>`;
+  for(let gx=190;gx<W-160;gx+=52)links+=`<line class="ggrass" x1="${gx}" y1="${groundY}" x2="${gx-4}" y2="${groundY-7}"/>`;
+  nodes+=`<g class="rootc"><circle cx="${cx}" cy="${(groundY-26).toFixed(1)}" r="9"/>
+    <text class="namelbl" x="${cx}" y="${groundY+34}" text-anchor="middle">GRASSHOPPER</text></g>`;
+
+  // trunk: gentle sway through the chapter attach heights
+  const attach=[];
+  chapters.forEach((ch,i)=>{
+    const R=rng(hash32("sw"+ch.num));
+    attach.push({y:groundY-150-i*chStep, x:cx+(i%2?1:-1)*(6+R()*10)});
+  });
+  let trunk=`M${cx} ${(groundY-26).toFixed(1)}`;
+  let prev={x:cx,y:groundY-26};
+  attach.forEach(a=>{
+    trunk+=` C ${prev.x.toFixed(1)} ${((prev.y+a.y)/2).toFixed(1)}, ${a.x.toFixed(1)} ${((prev.y+a.y)/2).toFixed(1)}, ${a.x.toFixed(1)} ${a.y.toFixed(1)}`;
+    prev=a;
+  });
+  const topY=attach[attach.length-1].y-70;
+  trunk+=` C ${prev.x.toFixed(1)} ${(prev.y-35).toFixed(1)}, ${cx} ${(topY+30).toFixed(1)}, ${cx} ${topY.toFixed(1)}`;
+  links+=`<path class="glink" stroke-width="5" opacity=".95" d="${trunk}"/>`;
+
+  chapters.forEach((ch,i)=>{
+    const list=byCh[ch.num];
+    const R=rng(hash32("ec"+ch.num));
+    const side=i%2===0?-1:1;
+    const A=attach[i];
+    const chX=cx+side*(176+R()*22), chY=A.y-26-R()*18;
+    // trunk -> chapter
+    links+=`<path class="glink" stroke-width="1.9" d="M${A.x.toFixed(1)} ${A.y.toFixed(1)} C ${(A.x+side*70).toFixed(1)} ${(A.y-6).toFixed(1)}, ${(chX-side*70).toFixed(1)} ${(chY+16).toFixed(1)}, ${chX.toFixed(1)} ${chY.toFixed(1)}"/>`;
+    nodes+=`<g class="gnode"><circle cx="${chX.toFixed(1)}" cy="${chY.toFixed(1)}" r="8"/>
+      <text x="${chX.toFixed(1)}" y="${(chY+26).toFixed(1)}" text-anchor="middle">${ch.num} · ${esc(String(ch.name).toUpperCase())}</text></g>`;
+    // sections fan outward, climbing: first section low, last high
+    const k=list.length;
+    list.forEach((t,j)=>{
+      const f=k===1?0.5:j/(k-1);
+      const ang=(52-f*118+(R()-0.5)*9)*Math.PI/180;   // +52° down-out ... -66° up-out
+      const r=178+j*11+(R()-0.5)*24;
+      const lx=chX+side*Math.cos(ang)*r;
+      const ly=chY+Math.sin(ang)*r;
+      const mx=chX+side*Math.cos(ang)*r*0.5-side*Math.sin(ang)*18;
+      const my=chY+Math.sin(ang)*r*0.5+Math.cos(ang)*10;
+      links+=`<path class="glink" d="M${chX.toFixed(1)} ${chY.toFixed(1)} Q ${mx.toFixed(1)} ${my.toFixed(1)} ${lx.toFixed(1)} ${ly.toFixed(1)}"/>`;
+      pos[t.id]={x:lx,y:ly,side};
+    });
+  });
+
+  // cross-chapter prerequisites: dashed, bundled toward the trunk
+  DATA.tutorials.forEach(t=>{
+    (t.prerequisites||[]).forEach(p=>{
+      const pt=tutOf(p);
+      if(!pt||!pos[p]||!pos[t.id])return;
+      if(pt.chapter===t.chapter)return;
+      const A=pos[p],B=pos[t.id];
+      const qx=cx+((A.x+B.x)/2-cx)*0.2, qy=(A.y+B.y)/2;
+      arcs+=`<path class="sedge crossp" data-src="${p}" data-tgt="${t.id}" d="M${A.x.toFixed(1)} ${A.y.toFixed(1)} Q ${qx.toFixed(1)} ${qy.toFixed(1)} ${B.x.toFixed(1)} ${B.y.toFixed(1)}"/>`;
+    });
+  });
+
+  // leaves
+  DATA.tutorials.forEach(t=>{
+    const p=pos[t.id]; if(!p)return;
+    const unv=t.status==="draft",done=isDone(t.id);
+    const isE=t.id===entry;
+    const short=t.title.length>27?t.title.slice(0,26)+"…":t.title;
+    const anchor=p.side>0?"start":"end";
+    nodes+=`<g class="mnode${unv?" unv":""}${done?" done":""}${isE?" entry":""}" data-id="${t.id}" tabindex="0" role="button" aria-label="${esc(t.title)}">
+      ${isE?`<circle class="pulsering" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="13"/>`:""}
+      <circle class="tip" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${isE?6.5:5}"/>
+      <circle class="hit" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="14" fill="transparent"/>
+      <text x="${(p.x+p.side*11).toFixed(1)}" y="${(p.y+4).toFixed(1)}" text-anchor="${anchor}">${esc(short)}</text>
+      <title>${esc(t.title)}</title>
+    </g>`;
+  });
+
+  svg.innerHTML=`<g id="vp">${links}${arcs}${nodes}</g>`;
+}
+function applyView(){
+  const vp=$("#vp");
+  if(vp)vp.setAttribute("transform",`translate(${MVIEW.tx} ${MVIEW.ty}) scale(${MVIEW.s})`);
+}
+function wireMindMap(){
+  const wrap=$("#mindwrap"),svg=$("#dtSvg");
+  if(!wrap||wrap._wired)return;
+  wrap._wired=true;
+  const clamp=s=>Math.max(0.35,Math.min(3,s));
+  function zoomAt(px,py,factor){
+    const ns=clamp(MVIEW.s*factor);
+    const r=svg.getBoundingClientRect();
+    const vb=svg.viewBox.baseVal;
+    const sc=Math.min(r.width/vb.width,r.height/vb.height);
+    const ox=(r.width-vb.width*sc)/2, oy=(r.height-vb.height*sc)/2;
+    const mx=(px-r.left-ox)/sc, my=(py-r.top-oy)/sc;
+    MVIEW.tx=mx-(mx-MVIEW.tx)*(ns/MVIEW.s);
+    MVIEW.ty=my-(my-MVIEW.ty)*(ns/MVIEW.s);
+    MVIEW.s=ns;
+    applyView();
+  }
+  wrap.addEventListener("wheel",e=>{
+    e.preventDefault();
+    zoomAt(e.clientX,e.clientY,Math.pow(1.0015,-e.deltaY));
+  },{passive:false});
+  let drag=null;
+  wrap.addEventListener("pointerdown",e=>{
+    if(e.target.closest(".zoomctl"))return;
+    drag={x:e.clientX,y:e.clientY,tx:MVIEW.tx,ty:MVIEW.ty,rot:MVIEW.rot,pid:e.pointerId,captured:false};
+    MVIEW._dragged=false;
+  });
+  let rafPending=false;
+  wrap.addEventListener("pointermove",e=>{
+    if(!drag)return;
+    const moved=Math.abs(e.clientX-drag.x)+Math.abs(e.clientY-drag.y);
+    if(moved>12&&!drag.captured){
+      drag.captured=true;MVIEW._dragged=true;
+      wrap.classList.add("grabbing");
+      try{wrap.setPointerCapture(drag.pid);}catch(_){}
+    }
+    if(!drag.captured)return;
+    const r=svg.getBoundingClientRect();
+    const vb=svg.viewBox.baseVal;
+    const sc=Math.min(r.width/vb.width,r.height/vb.height)||1;
+    MVIEW.tx=drag.tx+(e.clientX-drag.x)/sc;
+    MVIEW.ty=drag.ty+(e.clientY-drag.y)/sc;
+    applyView();
+  });
+  const up=e=>{
+    if(drag&&drag.captured){try{wrap.releasePointerCapture(drag.pid);}catch(_){}}
+    drag=null;wrap.classList.remove("grabbing");
+    setTimeout(()=>{MVIEW._dragged=false;},80);
+  };
+  wrap.addEventListener("pointerup",up);
+  wrap.addEventListener("pointercancel",up);
+  wrap.addEventListener("pointerleave",()=>{
+    svg.classList.remove("dimming");
+    svg.querySelectorAll(".lit").forEach(x=>x.classList.remove("lit"));
+  });
+  // delegated node interactions: survive every re-render
+  const clearHi=()=>{
+    svg.classList.remove("dimming");
+    svg.querySelectorAll(".lit").forEach(x=>x.classList.remove("lit"));
+  };
+  svg.addEventListener("click",e=>{
+    const g=e.target.closest(".mnode");
+    if(g&&!MVIEW._dragged)openDrawer(g.dataset.id);
+  });
+  svg.addEventListener("keydown",e=>{
+    const g=e.target.closest(".mnode");
+    if(g&&(e.key==="Enter"||e.key===" ")){e.preventDefault();openDrawer(g.dataset.id);}
+  });
+  svg.addEventListener("pointerover",e=>{
+    const g=e.target.closest(".mnode");
+    if(!g)return;
+    const ch=ancestorsOf(g.dataset.id);ch.add(g.dataset.id);
+    svg.classList.add("dimming");
+    svg.querySelectorAll(".mnode").forEach(x=>x.classList.toggle("lit",ch.has(x.dataset.id)));
+    svg.querySelectorAll(".sedge").forEach(e2=>e2.classList.toggle("lit",ch.has(e2.dataset.tgt)&&ch.has(e2.dataset.src)));
+  });
+  svg.addEventListener("pointerout",e=>{
+    if(e.target.closest(".mnode"))clearHi();
+  });
+  wrap.addEventListener("dblclick",e=>zoomAt(e.clientX,e.clientY,1.5));
+  $("#zin").addEventListener("click",()=>{MVIEW.s=clamp(MVIEW.s*1.25);applyView();});
+  $("#zout").addEventListener("click",()=>{MVIEW.s=clamp(MVIEW.s/1.25);applyView();});
+  $("#zfit").addEventListener("click",()=>{MVIEW.s=1;MVIEW.tx=0;MVIEW.ty=0;applyView();});
+  $("#vplan").addEventListener("click",()=>{MVIEW.mode="plan";$("#vplan").classList.add("active");$("#velev").classList.remove("active");MVIEW.s=1;MVIEW.tx=0;MVIEW.ty=0;renderDataTree();});
+  $("#velev").addEventListener("click",()=>{MVIEW.mode="elev";$("#velev").classList.add("active");$("#vplan").classList.remove("active");MVIEW.s=1;MVIEW.tx=0;MVIEW.ty=0;renderDataTree();});
+}
+
+/* ---------- index ---------- */
+function renderFilters(){
+  const f=$("#filters");
+  const softwareSet=[...new Set(DATA.tutorials.flatMap(t=>t.software||[]))].sort();
+  f.innerHTML=`
+    <span class="flabel">Branch</span>
+    ${DATA.categories.map(c=>`<button class="chip" data-f="category" data-v="${c.id}"><span class="dot" style="background:${c.color}"></span>${esc(c.name)}</button>`).join("")}
+    <span class="flabel">Level</span>
+    ${DATA.levels.map(l=>`<button class="chip" data-f="level" data-v="${l}">${esc(cap(l))}</button>`).join("")}
+    <span class="flabel">Status</span>
+    ${Object.keys(DATA.statuses).map(s=>`<button class="chip" data-f="status" data-v="${s}">${esc(statusLabel[s]||s)}</button>`).join("")}
+    <span class="flabel">Software</span>
+    <select id="softwareSel" class="chip" style="appearance:auto">
+      <option value="">All software</option>
+      ${softwareSet.map(s=>`<option>${esc(s)}</option>`).join("")}
+    </select>
+  `;
+  // restore active states after a re-render
+  f.querySelectorAll(".chip[data-f]").forEach(b=>{
+    if(activeFilters[b.dataset.f].has(b.dataset.v)) b.classList.add("active");
+  });
+  if(!f._wired){
+    f._wired=true;
+    f.addEventListener("click",e=>{
+      const b=e.target.closest(".chip[data-f]"); if(!b)return;
+      const set=activeFilters[b.dataset.f];
+      set.has(b.dataset.v)?set.delete(b.dataset.v):set.add(b.dataset.v);
+      b.classList.toggle("active");
+      renderCards();
+    });
+  }
+  $("#softwareSel").addEventListener("change",renderCards);
+}
+
+function filteredTutorials(){
+  const soft=$("#softwareSel")?.value||"";
+  const q=searchQuery.trim().toLowerCase();
+  return DATA.tutorials.filter(t=>{
+    if(activeFilters.category.size&&!activeFilters.category.has(t.category))return false;
+    if(activeFilters.level.size&&!activeFilters.level.has(t.level))return false;
+    if(activeFilters.status.size&&!activeFilters.status.has(t.status))return false;
+    if(soft&&!(t.software||[]).includes(soft))return false;
+    if(q){
+      const hay=(t.title+" "+t.summary+" "+(t.software||[]).join(" ")+" "+catOf(t.category).name).toLowerCase();
+      if(!hay.includes(q))return false;
+    }
+    return true;
+  });
+}
+
+function renderCards(){
+  const list=filteredTutorials();
+  $("#indexCount").textContent=`${list.length} OF ${DATA.tutorials.length} TUTORIALS`;
+  $("#cardGrid").innerHTML=list.map(t=>{
+    const c=catOf(t.category);
+    return `<button class="card" data-id="${t.id}" style="border-left-color:${c.color}">
+      <span class="cat" style="color:${c.color}">${esc(c.name)}</span>
+      <h3>${esc(t.title)}</h3>
+      <span class="meta">${esc(cap(t.level))} · ${esc(t.duration)} · ${esc(t.format)}</span>
+      <span class="sum">${esc(t.summary)}</span>
+      <span class="foot">
+        <span class="who">${esc(t.contributor?.name||"")}</span>
+        <span style="display:flex;gap:6px">${isDone(t.id)?`<span class="badge donetag">✓ Done</span>`:""}<span class="badge ${t.status}">${statusLabel[t.status]||t.status}</span></span>
+      </span>
+    </button>`;
+  }).join("")||`<p style="color:var(--ink-soft);padding:30px 4px">No tutorials match. Clear a filter, or contribute the missing one.</p>`;
+  $("#cardGrid").querySelectorAll(".card").forEach(cd=>cd.addEventListener("click",()=>openDrawer(cd.dataset.id)));
+}
+
+/* ---------- courses ---------- */
+function renderCourses(){
+  const courses=DATA.courses||[];
+  $("#courseList").innerHTML=courses.map(c=>{
+    const allIds=c.tutorialIds||[];
+    const stops=allIds.map(tutOf).filter(Boolean);
+    const doneN=stops.filter(s=>isDone(s.id)).length;
+    const pct=stops.length?Math.round(doneN/stops.length*100):0;
+    return `<div class="trail">
+      <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+        ${c.code?`<span class="ccode">${esc(c.code)}</span>`:""}
+        <h3>${esc(c.name)}</h3>
+      </div>
+      <div class="tmeta">${esc((c.instructor||"").toUpperCase())}${c.term?" · "+esc(String(c.term).toUpperCase()):""} · ${stops.length} STOPS · ${doneN}/${stops.length} CHECKED IN BY YOU${c.url?` · <a href="${esc(c.url)}" target="_blank" rel="noopener">COURSE SITE ↗</a>`:""}</div>
+      <div class="pbar"><div class="pfill" style="width:${pct}%"></div></div>
+      <p>${esc(c.description||"")}</p>
+      <div class="stops">${stops.map((s,i)=>{
+        const dn=isDone(s.id);
+        return `${i>0?'<span class="connector"></span>':""}
+        <button class="stop" data-id="${s.id}">
+          <span class="n${dn?" dn":""}">${dn?"✓":i+1}</span>${esc(s.title)}
+        </button>`;
+      }).join("")}</div>
+    </div>`;
+  }).join("")||`<div class="trail"><h3>No courses yet</h3><p style="margin-top:6px">Each course instructor defines their own path through the shared tutorial pool: an ordered sequence, optionally grouped into modules or weeks. Add a course via the courses spreadsheet or content.json and it appears here.</p></div>`;
+  $("#courseList").querySelectorAll(".stop").forEach(s=>s.addEventListener("click",()=>openDrawer(s.dataset.id)));
+}
+
+/* ---------- contribute ---------- */
+
+
+
+/* ---------- content system ---------- */
+function parseCSV(text){
+  const rows=[];let row=[],cur="",q=false;
+  for(let i=0;i<text.length;i++){
+    const ch=text[i];
+    if(q){
+      if(ch==='"'){ if(text[i+1]==='"'){cur+='"';i++;} else q=false; }
+      else cur+=ch;
+    }else{
+      if(ch==='"')q=true;
+      else if(ch===','){row.push(cur);cur="";}
+      else if(ch==='\n'||ch==='\r'){ if(ch==='\r'&&text[i+1]==='\n')i++; row.push(cur);cur="";rows.push(row);row=[]; }
+      else cur+=ch;
+    }
+  }
+  if(cur.length||row.length){row.push(cur);rows.push(row);}
+  return rows.filter(r=>r.some(c=>c.trim()!==""));
+}
+function csvRowsToTutorials(rows){
+  const head=rows[0].map(h=>h.trim().toLowerCase());
+  const col=name=>head.indexOf(name);
+  const need=["id","title","category","level"];
+  const missing=need.filter(n=>col(n)<0);
+  if(missing.length) throw new Error("Missing columns: "+missing.join(", "));
+  const get=(r,name)=>{const i=col(name);return i<0?"":String(r[i]||"").trim();};
+  const list=[];
+  rows.slice(1).forEach(r=>{
+    const id=get(r,"id");
+    if(!id||id.startsWith("#"))return;
+    const lines=s=>s.split("\n").map(x=>x.trim()).filter(Boolean);
+    list.push({
+      id,
+      title:get(r,"title"),
+      category:get(r,"category"),
+      software:get(r,"software").split(",").map(s=>s.trim()).filter(Boolean),
+      level:get(r,"level")||"beginner",
+      format:get(r,"format")||"video series",
+      duration:get(r,"duration")||"tbd",
+      summary:get(r,"summary"),
+      steps:lines(get(r,"steps")).map(s=>{const p=s.split("|").map(x=>x.trim());return {type:p[0]||"video",title:p[1]||p[0]||"",url:p[2]||""};}),
+      resources:lines(get(r,"resources")).map(s=>{const p=s.split("|").map(x=>x.trim());return {label:p[0]||"",url:p[1]||""};}),
+      contributor:{name:get(r,"contributor_name"),role:get(r,"contributor_role")},
+      prerequisites:get(r,"prerequisites").split(",").map(s=>s.trim()).filter(Boolean),
+      tags:get(r,"tags").split(",").map(s=>s.trim()).filter(Boolean),
+      chapter:parseInt(get(r,"chapter"),10)||undefined,
+      order:parseInt(get(r,"order"),10)||undefined,
+      status:get(r,"status")||"draft",
+      verifiedBy:get(r,"verified_by"),
+      updated:get(r,"updated")||new Date().toISOString().slice(0,7)
+    });
+  });
+  return list;
+}
+
+/* ---------- drawer ---------- */
+function openDrawer(id){
+  if(!tutOf(id))return;
+  renderTutorialPage(id);
+  showView("tutorial");
+  try{
+    const want="#t/"+encodeURIComponent(id);
+    if(location.hash!==want)location.hash=want.slice(1);
+  }catch(_){}
+}
+function ytEmbed(url){
+  if(!url)return null;
+  let m=url.match(/youtu\.be\/([\w-]{6,})/)||url.match(/[?&]v=([\w-]{6,})/);
+  if(m)return "https://www.youtube.com/embed/"+m[1];
+  m=url.match(/[?&]list=([\w-]+)/);
+  if(m)return "https://www.youtube.com/embed/videoseries?list="+m[1];
+  return null;
+}
+function renderTutorialPage(id){
+  const t=tutOf(id);if(!t)return;
+  $("#tpageInner").dataset.current=id;
+  const c=catOf(t.category);
+  const done=isDone(id);
+  const chapters=DATA.chapters||[];
+  const chName=(chapters.find(x=>x.num===t.chapter)||{}).name||"";
+  const deps=DATA.tutorials.filter(x=>(x.prerequisites||[]).includes(id));
+  const inCourses=(DATA.courses||[]).filter(cc=>(cc.tutorialIds||[]).includes(id));
+  const metaBits=[
+    t.chapter?`CHAPTER ${t.chapter}${chName?" · "+esc(String(chName).toUpperCase()):""}`:"",
+    esc(String(t.level||"").toUpperCase()),
+    t.status==="draft"?"PLANNED":""
+  ].filter(Boolean).join("&ensp;·&ensp;");
+  const stepBlocks=(t.steps||[]).map(s=>{
+    const emb=s.type==="video"?ytEmbed(s.url):null;
+    if(emb)return `<figure class="tvid">
+      <figcaption>${esc(s.title)}</figcaption>
+      <div class="tvidbox"><iframe src="${esc(emb)}" title="${esc(s.title)}" loading="lazy" allowfullscreen
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>
+    </figure>`;
+    if(s.url)return `<a class="tlinkrow" href="${esc(s.url)}" target="_blank" rel="noopener">
+      <span class="t">${esc(s.title)}</span><span class="k">${esc(s.type)} ↗</span></a>`;
+    return `<div class="tlinkrow"><span class="t">${esc(s.title)}</span><span class="k">${esc(s.type)}</span></div>`;
+  }).join("");
+  $("#tpageInner").innerHTML=`
+    <a class="backlink" href="#" id="tBack">← BACK TO THE TREE</a>
+    <h1>${esc(t.title)}</h1>
+    <div class="tmetaline">${metaBits}</div>
+    <p class="tsum">${esc(t.summary||"")}</p>
+    ${stepBlocks||`<p class="tsum">Planned section. No resource yet: this is an open slot for a contributor. See the Contribute page.</p>`}
+    ${t.resources?.length?`<h2>FILES</h2>
+      <ul class="tres">${t.resources.map(r=>`<li>${r.url?`<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.label)}</a>`:esc(r.label)}</li>`).join("")}</ul>`:""}
+    <div class="tcheck">
+      <button class="btn${done?"":" primary"}" id="tCheckBtn">${done?"✓ Checked in — undo":"Check in: I finished this"}</button>
+    </div>
+`;
+  $("#tBack").addEventListener("click",e=>{
+    e.preventDefault();
+    showView("tree");
+    try{location.hash="";}catch(_){}
+  });
+  $("#tCheckBtn").addEventListener("click",()=>{
+    toggleDone(id);renderAll();renderTutorialPage(id);
+  });
+}
+function route(){
+  const m=location.hash.match(/^#t\/(.+)$/);
+  if(m){
+    const id=decodeURIComponent(m[1]);
+    if(tutOf(id)){
+      if($("#tpageInner").dataset.current!==id)renderTutorialPage(id);
+      showView("tutorial");return;
+    }
+  }
+  if(document.querySelector("#view-tutorial.active"))showView("tree");
+}
+window.addEventListener("hashchange",route);
+
+/* ---------- search ---------- */
+$("#searchInput").addEventListener("input",e=>{
+  searchQuery=e.target.value;
+  if(searchQuery.trim()) showView("index");
+  renderCards();
+});
+
+/* ---------- boot ---------- */
+function renderAll(){
+  $("#brandSub").textContent=`UBC SALA · TUTORIALS + WORKFLOWS`;
+  $("#progressChip").textContent=`✓ ${doneCountAll()}/${DATA.tutorials.length}`;
+  renderDataTree();
+  renderFilters();
+  renderCards();
+  renderCourses();
+}
+$("#progressChip").addEventListener("click",()=>showView("tree"));
+
+wireMindMap();
+renderAll();
+route();
+
+</script>
+</body>
+</html>
