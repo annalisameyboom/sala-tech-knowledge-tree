@@ -1343,14 +1343,260 @@
       },
       "prerequisites": [
         "gh-4-5",
-        "gh-3-3"
+        "gh-3-3",
+        "robo-2-3"
       ],
       "tags": [],
       "status": "in_review",
       "verifiedBy": "",
       "updated": "2026-08",
       "chapter": 8,
-      "order": 5
+      "order": 5,
+      "treeMemberships": [
+        {
+          "tree": "grasshopper",
+          "chapter": 8,
+          "order": 5
+        },
+        {
+          "tree": "robotics",
+          "chapter": 3,
+          "order": 1
+        }
+      ]
+    },
+    {
+      "id": "robo-1-1",
+      "title": "1.1 Introduction to Hardware",
+      "category": "fabrication",
+      "software": [
+        "UR30"
+      ],
+      "level": "beginner",
+      "format": "interactive module",
+      "duration": "20-30 min",
+      "summary": "UR30 anatomy: joints, controller, teach pendant, and the safety-rated components that make it collaborative.",
+      "steps": [
+        {
+          "type": "text",
+          "title": "UR Academy: 1.1 Introduction to Hardware",
+          "url": "https://academy.universal-robots.com/modules/ur20-30/English/module1/story_html5.html?courseId=324019&language=English&trainingId=5htd48Rkn5E"
+        }
+      ],
+      "resources": [],
+      "contributor": {
+        "name": "Universal Robots Academy",
+        "role": "External training provider"
+      },
+      "prerequisites": [],
+      "tags": [],
+      "status": "in_review",
+      "verifiedBy": "",
+      "updated": "2026-09",
+      "chapter": 1,
+      "order": 1,
+      "treeMemberships": [
+        {
+          "tree": "robotics",
+          "chapter": 1,
+          "order": 1
+        }
+      ]
+    },
+    {
+      "id": "robo-1-2",
+      "title": "1.2 Configuring a Tool",
+      "category": "fabrication",
+      "software": [
+        "UR30"
+      ],
+      "level": "beginner",
+      "format": "interactive module",
+      "duration": "20-30 min",
+      "summary": "Setting up an end effector in the controller: TCP, payload, and center of gravity.",
+      "steps": [
+        {
+          "type": "text",
+          "title": "UR Academy: 1.2 Configuring a Tool",
+          "url": "https://academy.universal-robots.com/modules/ur20-30/English/module2/story_html5.html?courseId=324021&language=English&trainingId=600LpNU2cXu"
+        }
+      ],
+      "resources": [],
+      "contributor": {
+        "name": "Universal Robots Academy",
+        "role": "External training provider"
+      },
+      "prerequisites": [
+        "robo-1-1"
+      ],
+      "tags": [],
+      "status": "in_review",
+      "verifiedBy": "",
+      "updated": "2026-09",
+      "chapter": 1,
+      "order": 2,
+      "treeMemberships": [
+        {
+          "tree": "robotics",
+          "chapter": 1,
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "robo-2-1",
+      "title": "2.1 Movement and Motion Types",
+      "category": "fabrication",
+      "software": [
+        "UR30"
+      ],
+      "level": "intermediate",
+      "format": "interactive module",
+      "duration": "20-30 min",
+      "summary": "MoveJ, MoveL, and MoveP: joint versus linear motion and when each one is the right tool.",
+      "steps": [
+        {
+          "type": "text",
+          "title": "UR Academy: 2.1 Movement and Motion Types",
+          "url": "https://academy.universal-robots.com/modules/ur20-30/English/module3/story_html5.html?courseId=331991&language=English&trainingId=63hRE0imrBF"
+        }
+      ],
+      "resources": [],
+      "contributor": {
+        "name": "Universal Robots Academy",
+        "role": "External training provider"
+      },
+      "prerequisites": [
+        "robo-1-2"
+      ],
+      "tags": [],
+      "status": "in_review",
+      "verifiedBy": "",
+      "updated": "2026-09",
+      "chapter": 2,
+      "order": 1,
+      "treeMemberships": [
+        {
+          "tree": "robotics",
+          "chapter": 2,
+          "order": 1
+        }
+      ]
+    },
+    {
+      "id": "robo-2-2",
+      "title": "2.2 Creating a Program",
+      "category": "fabrication",
+      "software": [
+        "Grasshopper",
+        "UR30"
+      ],
+      "level": "intermediate",
+      "format": "interactive module",
+      "duration": "20-30 min",
+      "summary": "Building a program in PolyScope from waypoints, and the structure of a runnable UR30 sequence.",
+      "steps": [
+        {
+          "type": "text",
+          "title": "UR Academy: 2.2 Creating a Program",
+          "url": "https://academy.universal-robots.com/modules/ur20-30/English/module4/story_html5.html?courseId=331993&language=English&trainingId=5wPsh4CcLJ5"
+        }
+      ],
+      "resources": [],
+      "contributor": {
+        "name": "Universal Robots Academy",
+        "role": "External training provider"
+      },
+      "prerequisites": [
+        "robo-2-1"
+      ],
+      "tags": [],
+      "status": "in_review",
+      "verifiedBy": "",
+      "updated": "2026-09",
+      "chapter": 2,
+      "order": 2,
+      "treeMemberships": [
+        {
+          "tree": "robotics",
+          "chapter": 2,
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "robo-3-2",
+      "title": "3.2 Applied Project: End Effector Tooling",
+      "category": "fabrication",
+      "software": [
+        "UR30"
+      ],
+      "level": "advanced",
+      "format": "planned",
+      "duration": "tbd",
+      "summary": "Designing a custom end effector and running a full toolpath project from Grasshopper to the arm. Planned section: no dedicated resource yet.",
+      "steps": [],
+      "resources": [],
+      "contributor": {
+        "name": "",
+        "role": ""
+      },
+      "prerequisites": [
+        "gh-8-5"
+      ],
+      "tags": [],
+      "status": "draft",
+      "verifiedBy": "",
+      "updated": "2026-09",
+      "chapter": 3,
+      "order": 2,
+      "treeMemberships": [
+        {
+          "tree": "robotics",
+          "chapter": 3,
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "robo-2-3",
+      "title": "2.3 Picking and Placing",
+      "category": "fabrication",
+      "software": [
+        "UR30"
+      ],
+      "level": "intermediate",
+      "format": "interactive module",
+      "duration": "20-30 min",
+      "summary": "A full pick-and-place routine: grip logic, approach/retreat waypoints, and place accuracy.",
+      "steps": [
+        {
+          "type": "text",
+          "title": "UR Academy: 2.3 Picking and Placing",
+          "url": "https://academy.universal-robots.com/modules/ur20-30/English/module5/story_html5.html?courseId=331995&language=English&trainingId=69A1mJPmQMf"
+        }
+      ],
+      "resources": [],
+      "contributor": {
+        "name": "Universal Robots Academy",
+        "role": "External training provider"
+      },
+      "prerequisites": [
+        "robo-2-2"
+      ],
+      "tags": [],
+      "status": "in_review",
+      "verifiedBy": "",
+      "updated": "2026-09",
+      "chapter": 2,
+      "order": 3,
+      "treeMemberships": [
+        {
+          "tree": "robotics",
+          "chapter": 2,
+          "order": 3
+        }
+      ]
     }
   ],
   "courses": [
@@ -1411,6 +1657,64 @@
     {
       "num": 8,
       "name": "Applied Workflows"
+    }
+  ],
+  "trees": [
+    {
+      "id": "grasshopper",
+      "label": "GRASSHOPPER",
+      "chapters": [
+        {
+          "num": 1,
+          "name": "First Contact"
+        },
+        {
+          "num": 2,
+          "name": "Lists"
+        },
+        {
+          "num": 3,
+          "name": "Geometry"
+        },
+        {
+          "num": 4,
+          "name": "Data Trees"
+        },
+        {
+          "num": 5,
+          "name": "Control + Pattern"
+        },
+        {
+          "num": 6,
+          "name": "Surfaces + Structures"
+        },
+        {
+          "num": 7,
+          "name": "To Deliverable"
+        },
+        {
+          "num": 8,
+          "name": "Applied Workflows"
+        }
+      ]
+    },
+    {
+      "id": "robotics",
+      "label": "ROBOTICS",
+      "chapters": [
+        {
+          "num": 1,
+          "name": "Fundamentals"
+        },
+        {
+          "num": 2,
+          "name": "Programming + Toolpaths"
+        },
+        {
+          "num": 3,
+          "name": "Applied Fabrication"
+        }
+      ]
     }
   ]
 }
