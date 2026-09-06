@@ -1,6 +1,6 @@
 # SALA Tech Knowledge Tree
 
-A public, faculty-contributed, faculty-verified map of design-technology tutorials for architecture and landscape architecture students. Current scope: Grasshopper (8 chapters, 35 sections).
+A public, faculty-contributed, faculty-verified map of design-technology tutorials for architecture and landscape architecture students. Current scope: Grasshopper (8 chapters, 35 sections) Robotics (3 chapters, 7 sections)
 
 **Live site:** enable GitHub Pages on this repository (Settings → Pages → Deploy from a branch → main, root) and the tree is served at the repository's Pages URL.
 
