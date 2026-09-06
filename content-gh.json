@@ -1714,7 +1714,8 @@
           "num": 3,
           "name": "KUKA"
         }
-      ]
+      ],
+      "layout": "equal"
     }
   ]
 }
