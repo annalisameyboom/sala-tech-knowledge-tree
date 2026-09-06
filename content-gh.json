@@ -1343,7 +1343,8 @@
       },
       "prerequisites": [
         "gh-4-5",
-        "gh-3-3"
+        "gh-3-3",
+        "robo-2-3"
       ],
       "tags": [],
       "status": "in_review",
@@ -1540,7 +1541,9 @@
         "name": "",
         "role": ""
       },
-      "prerequisites": [],
+      "prerequisites": [
+        "gh-8-5"
+      ],
       "tags": [],
       "status": "draft",
       "verifiedBy": "",
@@ -1705,8 +1708,7 @@
         },
         {
           "num": 2,
-          "name": "UR30",
-          "leafRadius": 350
+          "name": "UR30"
         },
         {
           "num": 3,
