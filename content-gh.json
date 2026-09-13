@@ -1720,15 +1720,15 @@
         "gh-7-1",
         "gh-7-2",
         "gh-7-3",
-        "gh-8-5",
-        "robo-script-export",
-        "robo-script-import",
         "robo-1-1",
         "robo-1-2",
         "robo-2-1",
         "robo-2-2",
         "robo-2-3",
-        "robo-3-2"
+        "robo-3-2",
+        "gh-8-5",
+        "robo-script-export",
+        "robo-script-import"
       ]
     }
   ],
@@ -1810,14 +1810,14 @@
       "label": "ROBOTICS",
       "chapters": [
         {
-          "num": 1,
-          "name": "UR30",
-          "leafRadius": 350
-        },
-        {
           "num": 2,
           "name": "Grasshopper",
           "fanDeg": 40
+        },
+        {
+          "num": 1,
+          "name": "UR30",
+          "leafRadius": 350
         },
         {
           "num": 3,
