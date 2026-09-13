@@ -1367,7 +1367,7 @@
     },
     {
       "id": "robo-1-1",
-      "title": "1. Introduction to Hardware",
+      "title": "2.1 Introduction to Hardware",
       "category": "fabrication",
       "software": [
         "UR30"
@@ -1405,7 +1405,7 @@
     },
     {
       "id": "robo-1-2",
-      "title": "2. Configuring a Tool",
+      "title": "2.2 Configuring a Tool",
       "category": "fabrication",
       "software": [
         "UR30"
@@ -1445,7 +1445,7 @@
     },
     {
       "id": "robo-2-1",
-      "title": "3. Movement and Motion Types",
+      "title": "2.3 Movement and Motion Types",
       "category": "fabrication",
       "software": [
         "UR30"
@@ -1485,7 +1485,7 @@
     },
     {
       "id": "robo-2-2",
-      "title": "4. Creating a Program",
+      "title": "2.4 Creating a Program",
       "category": "fabrication",
       "software": [
         "Grasshopper",
@@ -1526,7 +1526,7 @@
     },
     {
       "id": "robo-3-2",
-      "title": "6. Applied Project: End Effector Tooling",
+      "title": "2.6 Applied Project: End Effector Tooling",
       "category": "fabrication",
       "software": [
         "UR30"
@@ -1558,7 +1558,7 @@
     },
     {
       "id": "robo-2-3",
-      "title": "5. Picking and Placing",
+      "title": "2.5 Picking and Placing",
       "category": "fabrication",
       "software": [
         "UR30"
