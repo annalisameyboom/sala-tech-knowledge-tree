@@ -1343,8 +1343,7 @@
       },
       "prerequisites": [
         "gh-4-5",
-        "gh-3-3",
-        "robo-2-3"
+        "gh-3-3"
       ],
       "tags": [],
       "status": "in_review",
@@ -1361,7 +1360,8 @@
         {
           "tree": "robotics",
           "chapter": 1,
-          "order": 1
+          "order": 1,
+          "label": "1.1 Robotic Fabrication"
         }
       ]
     },
@@ -1541,9 +1541,7 @@
         "name": "",
         "role": ""
       },
-      "prerequisites": [
-        "gh-8-5"
-      ],
+      "prerequisites": [],
       "tags": [],
       "status": "draft",
       "verifiedBy": "",
@@ -1595,6 +1593,85 @@
           "tree": "robotics",
           "chapter": 2,
           "order": 5
+        }
+      ]
+    },
+    {
+      "id": "robo-script-export",
+      "title": "1.2 Exporting Script from Grasshopper",
+      "category": "fabrication",
+      "software": [
+        "Grasshopper",
+        "UR30"
+      ],
+      "level": "beginner",
+      "format": "pdf guide",
+      "duration": "10 min",
+      "summary": "Turn a working Grasshopper toolpath simulation into a .script file: copy the program text from a Grasshopper panel, clean it up in a text editor, and save it ready for transfer to the UR30.",
+      "steps": [
+        {
+          "type": "text",
+          "title": "UR30-TUT: Exporting a Script File from Grasshopper",
+          "url": "resources/UR30_Exporting_Program.pdf"
+        }
+      ],
+      "resources": [],
+      "contributor": {
+        "name": "A. Meyboom",
+        "role": "UBC SALA"
+      },
+      "prerequisites": [],
+      "tags": [],
+      "status": "in_review",
+      "verifiedBy": "",
+      "updated": "2026-09",
+      "chapter": 1,
+      "order": 2,
+      "treeMemberships": [
+        {
+          "tree": "robotics",
+          "chapter": 1,
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "robo-script-import",
+      "title": "1.3 Importing Script to UR",
+      "category": "fabrication",
+      "software": [
+        "UR30"
+      ],
+      "level": "beginner",
+      "format": "pdf guide",
+      "duration": "10 min",
+      "summary": "Load an exported script onto the UR30 over USB: add it as a Script File in the System Manager, wire it into a new program, and run it safely with the dead-man switch.",
+      "steps": [
+        {
+          "type": "text",
+          "title": "UR30-TUT: Importing a Script File",
+          "url": "resources/UR30_Importing_Script.pdf"
+        }
+      ],
+      "resources": [],
+      "contributor": {
+        "name": "A. Meyboom",
+        "role": "UBC SALA"
+      },
+      "prerequisites": [
+        "robo-script-export"
+      ],
+      "tags": [],
+      "status": "in_review",
+      "verifiedBy": "",
+      "updated": "2026-09",
+      "chapter": 1,
+      "order": 3,
+      "treeMemberships": [
+        {
+          "tree": "robotics",
+          "chapter": 1,
+          "order": 3
         }
       ]
     }
@@ -1708,7 +1785,8 @@
         },
         {
           "num": 2,
-          "name": "UR30"
+          "name": "UR30",
+          "leafRadius": 350
         },
         {
           "num": 3,
