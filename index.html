@@ -994,7 +994,6 @@ function wireMindMap(){
   let pinch=null;
   wrap.addEventListener("pointerdown",e=>{
     if(e.target.closest(".zoomctl"))return;
-    try{wrap.setPointerCapture(e.pointerId);}catch(_){}
     pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
     if(pointers.size===1){
       drag={x:e.clientX,y:e.clientY,tx:MVIEW.tx,ty:MVIEW.ty,rot:MVIEW.rot,pid:e.pointerId,captured:false};
@@ -1005,6 +1004,7 @@ function wireMindMap(){
       const pts=Array.from(pointers.values());
       pinch={dist:Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y)};
       wrap.classList.add("grabbing");
+      pointers.forEach((_,pid)=>{try{wrap.setPointerCapture(pid);}catch(_){}});
     }
   });
   wrap.addEventListener("pointermove",e=>{
