@@ -1612,7 +1612,7 @@
         {
           "type": "text",
           "title": "UR30-TUT: Exporting a Script File from Grasshopper",
-          "url": "resources/UR30_Exporting_Program.pdf"
+          "url": "resources/UR30%20Exporting%20Program.pdf"
         }
       ],
       "resources": [],
@@ -1650,7 +1650,7 @@
         {
           "type": "text",
           "title": "UR30-TUT: Importing a Script File",
-          "url": "resources/UR30_Importing_Script.pdf"
+          "url": "resources/UR30%20Importing%20Script.pdf"
         }
       ],
       "resources": [],
@@ -1781,7 +1781,8 @@
       "chapters": [
         {
           "num": 1,
-          "name": "Grasshopper"
+          "name": "Grasshopper",
+          "fanDeg": 40
         },
         {
           "num": 2,
