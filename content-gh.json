@@ -1367,7 +1367,7 @@
     },
     {
       "id": "robo-1-1",
-      "title": "1.1 Introduction to Hardware",
+      "title": "1.2 Introduction to Hardware",
       "category": "fabrication",
       "software": [
         "UR30"
@@ -1388,24 +1388,26 @@
         "name": "Universal Robots Academy",
         "role": "External training provider"
       },
-      "prerequisites": [],
+      "prerequisites": [
+        "robo-turn-on-robot"
+      ],
       "tags": [],
       "status": "in_review",
       "verifiedBy": "",
       "updated": "2026-09",
       "chapter": 1,
-      "order": 1,
+      "order": 2,
       "treeMemberships": [
         {
           "tree": "robotics",
           "chapter": 1,
-          "order": 1
+          "order": 2
         }
       ]
     },
     {
       "id": "robo-1-2",
-      "title": "1.2 Configuring a Tool",
+      "title": "1.3 Configuring a Tool",
       "category": "fabrication",
       "software": [
         "UR30"
@@ -1434,18 +1436,18 @@
       "verifiedBy": "",
       "updated": "2026-09",
       "chapter": 1,
-      "order": 2,
+      "order": 3,
       "treeMemberships": [
         {
           "tree": "robotics",
           "chapter": 1,
-          "order": 2
+          "order": 3
         }
       ]
     },
     {
       "id": "robo-2-1",
-      "title": "1.3 Movement and Motion Types",
+      "title": "1.4 Movement and Motion Types",
       "category": "fabrication",
       "software": [
         "UR30"
@@ -1474,18 +1476,18 @@
       "verifiedBy": "",
       "updated": "2026-09",
       "chapter": 1,
-      "order": 3,
+      "order": 4,
       "treeMemberships": [
         {
           "tree": "robotics",
           "chapter": 1,
-          "order": 3
+          "order": 4
         }
       ]
     },
     {
       "id": "robo-2-2",
-      "title": "1.4 Creating a Program",
+      "title": "1.5 Creating a Program",
       "category": "fabrication",
       "software": [
         "Grasshopper",
@@ -1515,50 +1517,18 @@
       "verifiedBy": "",
       "updated": "2026-09",
       "chapter": 1,
-      "order": 4,
+      "order": 5,
       "treeMemberships": [
         {
           "tree": "robotics",
           "chapter": 1,
-          "order": 4
-        }
-      ]
-    },
-    {
-      "id": "robo-3-2",
-      "title": "1.6 Applied Project: End Effector Tooling",
-      "category": "fabrication",
-      "software": [
-        "UR30"
-      ],
-      "level": "advanced",
-      "format": "planned",
-      "duration": "tbd",
-      "summary": "Designing a custom end effector and running a full toolpath project from Grasshopper to the arm. Planned section: no dedicated resource yet.",
-      "steps": [],
-      "resources": [],
-      "contributor": {
-        "name": "",
-        "role": ""
-      },
-      "prerequisites": [],
-      "tags": [],
-      "status": "draft",
-      "verifiedBy": "",
-      "updated": "2026-09",
-      "chapter": 1,
-      "order": 6,
-      "treeMemberships": [
-        {
-          "tree": "robotics",
-          "chapter": 1,
-          "order": 6
+          "order": 5
         }
       ]
     },
     {
       "id": "robo-2-3",
-      "title": "1.5 Picking and Placing",
+      "title": "1.6 Picking and Placing",
       "category": "fabrication",
       "software": [
         "UR30"
@@ -1587,12 +1557,12 @@
       "verifiedBy": "",
       "updated": "2026-09",
       "chapter": 1,
-      "order": 5,
+      "order": 6,
       "treeMemberships": [
         {
           "tree": "robotics",
           "chapter": 1,
-          "order": 5
+          "order": 6
         }
       ]
     },
@@ -1637,7 +1607,7 @@
     },
     {
       "id": "robo-script-import",
-      "title": "2.4 Importing Script to UR",
+      "title": "2.3 Importing Script to UR",
       "category": "fabrication",
       "software": [
         "UR30"
@@ -1659,25 +1629,25 @@
         "role": "UBC SALA"
       },
       "prerequisites": [
-        "robo-turn-on-robot"
+        "robo-script-export"
       ],
       "tags": [],
       "status": "in_review",
       "verifiedBy": "",
       "updated": "2026-09",
       "chapter": 2,
-      "order": 4,
+      "order": 3,
       "treeMemberships": [
         {
           "tree": "robotics",
           "chapter": 2,
-          "order": 4
+          "order": 3
         }
       ]
     },
     {
       "id": "robo-turn-on-robot",
-      "title": "2.3 How to Turn on the Robot",
+      "title": "1.1 How to Turn on the Robot",
       "category": "fabrication",
       "software": [
         "UR30"
@@ -1698,20 +1668,18 @@
         "name": "A. Meyboom",
         "role": "UBC SALA"
       },
-      "prerequisites": [
-        "robo-script-export"
-      ],
+      "prerequisites": [],
       "tags": [],
       "status": "in_review",
       "verifiedBy": "",
       "updated": "2026-09",
-      "chapter": 2,
-      "order": 3,
+      "chapter": 1,
+      "order": 1,
       "treeMemberships": [
         {
           "tree": "robotics",
-          "chapter": 2,
-          "order": 3
+          "chapter": 1,
+          "order": 1
         }
       ]
     }
@@ -1765,7 +1733,6 @@
         "robo-2-1",
         "robo-2-2",
         "robo-2-3",
-        "robo-3-2",
         "gh-8-5",
         "robo-script-export",
         "robo-turn-on-robot",
