@@ -1637,7 +1637,7 @@
     },
     {
       "id": "robo-script-import",
-      "title": "2.3 Importing Script to UR",
+      "title": "2.4 Importing Script to UR",
       "category": "fabrication",
       "software": [
         "UR30"
@@ -1651,6 +1651,46 @@
           "type": "text",
           "title": "UR30-TUT: Importing a Script File",
           "url": "resources/UR30%20Importing%20Script.pdf"
+        }
+      ],
+      "resources": [],
+      "contributor": {
+        "name": "A. Meyboom",
+        "role": "UBC SALA"
+      },
+      "prerequisites": [
+        "robo-turn-on-robot"
+      ],
+      "tags": [],
+      "status": "in_review",
+      "verifiedBy": "",
+      "updated": "2026-09",
+      "chapter": 2,
+      "order": 4,
+      "treeMemberships": [
+        {
+          "tree": "robotics",
+          "chapter": 2,
+          "order": 4
+        }
+      ]
+    },
+    {
+      "id": "robo-turn-on-robot",
+      "title": "2.3 How to Turn on the Robot",
+      "category": "fabrication",
+      "software": [
+        "UR30"
+      ],
+      "level": "beginner",
+      "format": "video",
+      "duration": "tbd",
+      "summary": "Powering up the UR30 safely before running any program.",
+      "steps": [
+        {
+          "type": "video",
+          "title": "How to Turn on the Robot",
+          "url": "https://youtu.be/y4jAyUaLAhA"
         }
       ],
       "resources": [],
@@ -1728,6 +1768,7 @@
         "robo-3-2",
         "gh-8-5",
         "robo-script-export",
+        "robo-turn-on-robot",
         "robo-script-import"
       ]
     }
