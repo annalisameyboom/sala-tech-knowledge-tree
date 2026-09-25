@@ -992,8 +992,37 @@ function wireMindMap(){
   let drag=null;
   const pointers=new Map();
   let pinch=null;
+  let usingGesture=false;
+  // iOS Safari's own pinch-gesture API is far more reliable there than reconstructing
+  // pinch from raw multi-touch pointer coordinates; use it when available (Safari only).
+  if("ongesturestart" in wrap){
+    let gestureBaseScale=1;
+    wrap.addEventListener("gesturestart",e=>{
+      e.preventDefault();
+      usingGesture=true;
+      gestureBaseScale=MVIEW.s;
+      MVIEW._dragged=true;
+      if(drag&&drag.captured){try{wrap.releasePointerCapture(drag.pid);}catch(_){}}
+      drag=null;pinch=null;
+      wrap.classList.add("grabbing");
+    });
+    wrap.addEventListener("gesturechange",e=>{
+      e.preventDefault();
+      const r=wrap.getBoundingClientRect();
+      const px=(typeof e.clientX==="number")?e.clientX:r.left+r.width/2;
+      const py=(typeof e.clientY==="number")?e.clientY:r.top+r.height/2;
+      const targetScale=gestureBaseScale*e.scale;
+      zoomAt(px,py,targetScale/MVIEW.s);
+    });
+    wrap.addEventListener("gestureend",e=>{
+      e.preventDefault();
+      wrap.classList.remove("grabbing");
+      setTimeout(()=>{usingGesture=false;MVIEW._dragged=false;},80);
+    });
+  }
   wrap.addEventListener("pointerdown",e=>{
     if(e.target.closest(".zoomctl"))return;
+    if(usingGesture)return;
     pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
     if(pointers.size===1){
       drag={x:e.clientX,y:e.clientY,tx:MVIEW.tx,ty:MVIEW.ty,rot:MVIEW.rot,pid:e.pointerId,captured:false};
@@ -1008,6 +1037,7 @@ function wireMindMap(){
     }
   });
   wrap.addEventListener("pointermove",e=>{
+    if(usingGesture)return;
     if(pointers.has(e.pointerId))pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
     if(pinch&&pointers.size>=2){
       const pts=Array.from(pointers.values()).slice(0,2);
@@ -1034,6 +1064,7 @@ function wireMindMap(){
     applyView();
   });
   const up=e=>{
+    if(usingGesture)return;
     pointers.delete(e.pointerId);
     if(pointers.size<2)pinch=null;
     if(drag&&drag.captured&&e.pointerId===drag.pid){try{wrap.releasePointerCapture(drag.pid);}catch(_){}}
